@@ -23,7 +23,7 @@ namespace KL296NTermProject.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult LoginAndRegister()
         {
             return View();
         }

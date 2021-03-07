@@ -2,7 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center">
+    <div>
+        <h1 class="">Welcome To The Coding Dojo</h1>
+        <p>A place to share tips, and tricks with helpful information as well as sharing your personal interests in coding</p>
+    </div>
+    <div>
+        <p class="">Register and Login Here</p>
+
+<!--
+        using Microsoft.AspNetCore.Identity
+        inject SignInManager<AppUser> signInManager
+        if (signInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <form method="post" asp-action="LogOut" asp-controller="Account" asp-area="">
+                    <input type="submit" value="Log Out" class="btn btn-outline-dark" />
+                    <span class="text-dark">User.Identity.Name</span>
+                </form>
+            </li>
+
+        }
+        else
+        { }
+-->        
+        <div>
+            <span>
+                <a method="post" asp-action="Register" asp-controller="Account" asp-area="">
+                    <input type="submit" value="Register" class="btn btn-dark btn-outline-light" />
+                </a>
+            </span>
+            <span>
+                <a method="post" asp-action="LogIn" asp-controller="Account" asp-area="">
+                    <input type="submit" value="Login" class="btn btn-dark btn-outline-light" />
+                </a>
+            </span>
+        </div>
+
+        <div>
+
+        </div>
+    </div>
 </div>
