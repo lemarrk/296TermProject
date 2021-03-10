@@ -5,3 +5,37 @@
 }
 
 <p>cpp Messge</p>
+
+@model List<Message>
+
+
+<table class="table table-striped table-bordered">
+    <td>Name</td>
+    <td>Topic</td>
+    <td>Date Sent</td>
+    <td>Body</td>
+    <td>Delete Message</td>
+    @foreach (Message post in Model)
+    {
+        <tr>
+            <td>
+                @post.Name
+            </td>
+            <td>
+                @post.Topic
+            </td>
+            <td>
+                @post.DateSent
+            </td>
+            <td>
+                @post.Body
+            </td>
+            <td>
+                <form method="post"><button asp-action="GetReply" asp-controller="Forum" asp-route-id="@post.MessageID">Reply</button></form>
+            </td>
+            <td>
+                <form method="post"><button asp-action="Delete" asp-controller="Forum" asp-route-id="@post.MessageID">Delete</button></form>
+            </td>
+        </tr>
+    }
+</table>

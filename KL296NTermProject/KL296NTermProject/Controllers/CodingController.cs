@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KL296NTermProject.Models;
 
 namespace KL296NTermProject.Controllers
 {
@@ -10,7 +11,7 @@ namespace KL296NTermProject.Controllers
     {
         public IActionResult CppMessage()
         {
-            return View("~/Views/Coding/CPP/Message.cshtml");
+            return View("~/Views/Coding/CPP/Message.cshtml", new List<Message>());
         }
 
         public IActionResult CppTopic()
@@ -25,7 +26,7 @@ namespace KL296NTermProject.Controllers
 
         public IActionResult CSharpMessage()
         {
-            return View("~/Views/Coding/CSharp/Message.cshtml");
+            return View("~/Views/Coding/CSharp/Message.cshtml", new List<Message>());
         }
 
         public IActionResult CSharpTopic()
@@ -40,7 +41,7 @@ namespace KL296NTermProject.Controllers
 
         public IActionResult JSMessage()
         {
-            return View("~/Views/Coding/JS/Message.cshtml");
+            return View("~/Views/Coding/JS/Message.cshtml", new List<Message>());
         }
 
         public IActionResult JSTopic()
@@ -55,6 +56,14 @@ namespace KL296NTermProject.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SaveMessage(Message m)
+        {
+            m = new Message();
+
             return View();
         }
     }

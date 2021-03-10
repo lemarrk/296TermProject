@@ -4,4 +4,19 @@
 @{
 }
 
+@model Message
+
 <p>csharp topic</p>
+
+<form asp-action="SaveMessage" asp-controller="Coding" method="post" class="form-horizonal">
+    <div asp-validation-summary="All"></div>
+    <!-- form goes here -->
+    <div class="form-group">
+        <input class="form-control" placeholder="Input Sender Name" asp-for="Name" />
+        <br />
+        <input class="form-control" placeholder="Input Subject Title" asp-for="Topic" />
+        <br />
+        <textarea asp-for="Body" placeholder="Enter Text Here..." class="form-control"></textarea>
+        <button class="btn-default">Submit</button>
+    </div>
+</form>
