@@ -25,6 +25,12 @@ namespace KL296NTermProject.Controllers
 
         public IActionResult LoginAndRegister()
         {
+
+            return RedirectToAction("index", "LoginRegister");
+        }
+
+        public IActionResult Rules()
+        {
             return View();
         }
 

@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace KL296NTermProject
 {
@@ -39,12 +41,23 @@ namespace KL296NTermProject
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var services = app.ApplicationServices;
+            // var context = services.GetRequiredService<DatabaseContext>();
+            //var usr = services.GetRequiredService<UserManager<AppUser>>();
+            //var role = services.GetRequiredService<RoleManager<IdentityRole>>();
+            // var role = services.GetRequiredService<UserManager<IdentityRole>>();
+            // SeedData.Seed(context, usr, role);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
+            // add authentication 
+            app.UseAuthentication();
+            // then authorization
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
