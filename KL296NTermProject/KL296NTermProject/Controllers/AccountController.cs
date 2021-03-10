@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace KL296NTermProject.Controllers
 {
-    public class LoginRegisterController : Controller
+    public class AccountController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Register()
         {
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
 
         //    private UserManager<AppUser> userManager;
         //    private SignInManager<AppUser> signInManager;
