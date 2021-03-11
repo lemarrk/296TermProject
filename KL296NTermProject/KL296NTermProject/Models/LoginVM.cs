@@ -14,5 +14,7 @@ namespace KL296NTermProject.Models
         public string ReturnURL { get; set; }
 
         public bool RememberMe { get; set; }
+
+        public bool alreadyLoggedIn { get; set; } = false;
     }
 }

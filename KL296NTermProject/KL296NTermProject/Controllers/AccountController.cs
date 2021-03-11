@@ -3,19 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KL296NTermProject.Models;
 
 namespace KL296NTermProject.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Register()
+        public IActionResult Index()
         {
-            return View();
-        }
+            LoginVM login = new LoginVM();
 
-        public IActionResult Login()
-        {
-            return View();
+            return View(login);
         }
 
 
