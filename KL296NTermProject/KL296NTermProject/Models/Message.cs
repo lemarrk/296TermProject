@@ -12,15 +12,17 @@ namespace KL296NTermProject.Models
         [Key]
         public int MessageID { get; set; }
 
-        public Topic Topic { get; set; }
+        public string Sender { get; set; }
 
-        public string Name { get; set; }
+        public string Subject { get; set; }
 
         public DateTime DateSent { get; set; }
 
         public string Body { get; set; }
 
-        [ForeignKey("PostsID")]
+        public string Name { get; set; }
+
+        [ForeignKey("MessageID")]
         public List<Post> Posts { get; set; }
     }
 }

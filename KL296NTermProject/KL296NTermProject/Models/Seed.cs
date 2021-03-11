@@ -37,33 +37,24 @@ namespace KL296NTermProject.Models
                 rules.Rule.Add("Treat Others With Respect");
                 rules.Rule.Add("No Politics");
                 rules.Rule.Add("All the rules from Lcc apply");
-                rules.Rule.Add("Be Yourself");
-
 
                 context.Rules.Add(rules);
                 context.SaveChanges();
 
-                //Message message = new Message();
-                //message.DateSent = DateTime.Now;
-                //message.Sender = "Website Creator";
-                //message.Subject = "Making yourself an admin";
-                //message.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
-                //message.Name = siteadmin.UserName;
-                //message.Reply = new List<Reply>();
+                Topic topic = new Topic();
+                topic.Post = new Post();
+                topic.Video = new Video();
+                topic.Link = new Link();
 
-                //Reply reply = new Reply
-                //{
-                //    Name = "Kendall",
-                //    DateSent = DateTime.Now,
-                //    Body = "Make yourself at home",
-                //    Subject = "Logging in",
-                //    Sender = "Site User"
-                //};
+                topic.Post.DateSent = DateTime.Now;
+                topic.Post.Sender = "Website Creator";
+                topic.Post.Subject = "Making yourself an admin";
+                topic.Post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
+                topic.Post.Name = siteadmin.UserName;
+                topic.Post.Messages = new List<Message>();
 
-                //message.Reply.Add(reply);
-
-                //context.Message.Add(message);
-                //context.SaveChanges();
+                context.Topics.Add(topic);
+                context.SaveChanges();
             }
         }
     }

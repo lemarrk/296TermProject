@@ -15,6 +15,8 @@ namespace KL296NTermProject.Controllers
         {
             LoginVM login = new LoginVM();
             login.rules = new Rules();
+            login.rules.Rule = new List<string>();
+            login.rules.Rule.Add("Treat Others With Respect");
 
             return View(login);
         }

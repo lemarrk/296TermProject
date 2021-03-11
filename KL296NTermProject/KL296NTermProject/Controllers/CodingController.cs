@@ -11,7 +11,10 @@ namespace KL296NTermProject.Controllers
     {
         public IActionResult CppMessage()
         {
-            return View("~/Views/Coding/CPP/Message.cshtml", new List<Message>());
+            List<Message> messages = new List<Message>();
+            messages.Add(new Message());
+
+            return View("~/Views/Coding/CPP/Message.cshtml", messages);
         }
 
         public IActionResult CppTopic()

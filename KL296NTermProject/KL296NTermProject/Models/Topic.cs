@@ -16,14 +16,14 @@ namespace KL296NTermProject.Models
 
         public int PostsID { get; set; }
 
-        public List<Post> Posts { get; set; }
+        public Post Post { get; set; }
 
         public int VideosID { get; set; }
 
-        public List<Video> Videos { get; set; }
+        public Video Video { get; set; }
 
         public int LinksID { get; set; }
 
-        public List<Link> Links { get; set; }
+        public Link Link { get; set; }
     }
 }
