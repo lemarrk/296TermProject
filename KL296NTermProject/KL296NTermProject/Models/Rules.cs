@@ -7,5 +7,6 @@ namespace KL296NTermProject.Models
 {
     public class Rules
     {
+        public List<string> Rule { get; set; }
     }
 }

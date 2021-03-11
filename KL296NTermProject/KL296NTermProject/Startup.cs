@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using KL296NTermProject.Models;
 
 namespace KL296NTermProject
 {
@@ -25,7 +26,13 @@ namespace KL296NTermProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<AppUser, IdentityRole>()
+           .AddEntityFrameworkStores<DataDbContext>()
+           .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
+
+            services.AddDbContext<DataDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SQLServerConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,9 +50,9 @@ namespace KL296NTermProject
             }
 
             var services = app.ApplicationServices;
-            // var context = services.GetRequiredService<DatabaseContext>();
-            //var usr = services.GetRequiredService<UserManager<AppUser>>();
-            //var role = services.GetRequiredService<RoleManager<IdentityRole>>();
+            //var context = services.GetRequiredService<DataDbContext>();
+            var usr = services.GetRequiredService<UserManager<AppUser>>();
+            var role = services.GetRequiredService<RoleManager<IdentityRole>>();
             // var role = services.GetRequiredService<UserManager<IdentityRole>>();
             // SeedData.Seed(context, usr, role);
 
