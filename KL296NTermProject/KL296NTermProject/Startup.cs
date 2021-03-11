@@ -50,11 +50,11 @@ namespace KL296NTermProject
             }
 
             var services = app.ApplicationServices;
-            //var context = services.GetRequiredService<DataDbContext>();
+            var context = services.GetRequiredService<DataDbContext>();
             var usr = services.GetRequiredService<UserManager<AppUser>>();
             var role = services.GetRequiredService<RoleManager<IdentityRole>>();
             // var role = services.GetRequiredService<UserManager<IdentityRole>>();
-            // SeedData.Seed(context, usr, role);
+            Seed.starter(context, usr, role);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

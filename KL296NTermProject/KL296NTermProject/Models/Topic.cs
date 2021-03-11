@@ -12,18 +12,21 @@ namespace KL296NTermProject.Models
         [Key]
         public int TopicID { get; set; }
 
-        public string AdminName { get; set; }
+        public string TopicName { get; set; }
 
-        public int PostsID { get; set; }
+        public int? PostID { get; set; }
 
-        public Post Post { get; set; }
+        [ForeignKey("PostID")]
+        public ICollection<Post> Post { get; set; }
 
-        public int VideosID { get; set; }
+        public int? VideoID { get; set; }
 
-        public Video Video { get; set; }
+        [ForeignKey("VideoID")]
+        public ICollection<Video> Video { get; set; }
 
-        public int LinksID { get; set; }
+        public int? LinkID { get; set; }
 
-        public Link Link { get; set; }
+        [ForeignKey("LinkID")]
+        public ICollection<Link> Link { get; set; }
     }
 }

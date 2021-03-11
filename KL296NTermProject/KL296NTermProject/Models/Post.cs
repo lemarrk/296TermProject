@@ -12,9 +12,10 @@ namespace KL296NTermProject.Models
         [Key]
         public int PostID { get; set; }
 
-        public int MessageID { get; set; }
+        public int? MessageID { get; set; }
 
-        public List<Message> Messages { get; set; }
+        [ForeignKey("MessageID")]
+        public ICollection<Message> Message { get; set; }
 
         public string Sender { get; set; }
 
@@ -26,7 +27,5 @@ namespace KL296NTermProject.Models
 
         public string Name { get; set; }
 
-        [ForeignKey("PostsID")]
-        public Topic Topic { get; set; }
     }
 }

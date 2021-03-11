@@ -21,39 +21,57 @@ namespace KL296NTermProject.Models
 
             if (!context.Topics.Any())
             {
-                // create member role and admin
-                var adminRole = roleManager.CreateAsync(new IdentityRole("Member")).Result;
-                adminRole = roleManager.CreateAsync(new IdentityRole("Admin")).Result;
-                // add user called "SiteAdmin" to the user manager
-                var siteadmin = new AppUser() { UserName = "SiteAdmin", Role = "Site Admin" };
-                //
-                usrManager.CreateAsync(siteadmin, "Abc123!").Wait();
-                //
-                IdentityRole admin = roleManager.FindByNameAsync("Admin").Result;
-                // 
-                usrManager.AddToRoleAsync(siteadmin, admin.Name);
+                //// create member role and admin
+                //var adminRole = roleManager.CreateAsync(new IdentityRole("Member")).Result;
+                //adminRole = roleManager.CreateAsync(new IdentityRole("Admin")).Result;
+                //// add user called "SiteAdmin" to the user manager
+                //var siteadmin = new AppUser() { UserName = "SiteAdmin", Role = "Site Admin" };
+                ////
+                //usrManager.CreateAsync(siteadmin, "Abc123!").Wait();
+                ////
+                //IdentityRole admin = roleManager.FindByNameAsync("Admin").Result;
+                //// 
+                //usrManager.AddToRoleAsync(siteadmin, admin.Name);
 
-                Rules rules = new Rules();
-                rules.Rule.Add("Treat Others With Respect");
-                rules.Rule.Add("No Politics");
-                rules.Rule.Add("All the rules from Lcc apply");
+                //context.Rules.Add(rules);
+                //context.SaveChanges();
 
-                context.Rules.Add(rules);
+                Message m = new Message();
+                m.Body = "";
+                m.DateSent = DateTime.Now;
+
+                Post post = new Post();
+                post.DateSent = DateTime.Now;
+                post.Sender = "Website Creator";
+                post.Subject = "Making yourself an admin";
+                post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
+                post.Name = "NO NAME"; // siteadmin.UserName;
+                post.Message = new List<Message>();
+                post.Message.Add(m);
+
+                Topic topic1 = new Topic();
+                topic1.Post = new List<Post>();
+                topic1.Post.Add(post);
+                topic1.Video = new List<Video>();
+                topic1.Video.Add(new Video());
+                topic1.Link = new List<Link>();
+                topic1.Link.Add(new Link());
+
+                topic1.TopicName = "Cpp";
+
+                context.Topics.Add(topic1);
                 context.SaveChanges();
 
-                Topic topic = new Topic();
-                topic.Post = new Post();
-                topic.Video = new Video();
-                topic.Link = new Link();
+                Topic topic2 = new Topic();
+                topic2.TopicName = "CSharp";
 
-                topic.Post.DateSent = DateTime.Now;
-                topic.Post.Sender = "Website Creator";
-                topic.Post.Subject = "Making yourself an admin";
-                topic.Post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
-                topic.Post.Name = siteadmin.UserName;
-                topic.Post.Messages = new List<Message>();
+                context.Topics.Add(topic2);
+                context.SaveChanges();
 
-                context.Topics.Add(topic);
+                Topic topic3 = new Topic();
+                topic3.TopicName = "JS";
+
+                context.Topics.Add(topic3);
                 context.SaveChanges();
             }
         }

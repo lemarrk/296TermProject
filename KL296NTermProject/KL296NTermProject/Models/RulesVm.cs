@@ -7,13 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KL296NTermProject.Models
 {
-    public class Rules
+    public class RulesVm
     {
-        [Key]
-        public int RulesID { get; set; }
-
-        public string AdminName { get; set; }
-
         public List<string> Rule { get; set; }
     }
 }

@@ -22,7 +22,5 @@ namespace KL296NTermProject.Models
 
         public string Name { get; set; }
 
-        [ForeignKey("MessageID")]
-        public List<Post> Posts { get; set; }
     }
 }

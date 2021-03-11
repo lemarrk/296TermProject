@@ -22,7 +22,5 @@ namespace KL296NTermProject.Models
 
         public string UrlName { get; set; }
 
-        [ForeignKey("LinksID")]
-        public Topic Topic { get; set; }
     }
 }

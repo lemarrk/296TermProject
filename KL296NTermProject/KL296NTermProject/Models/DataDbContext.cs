@@ -11,8 +11,6 @@ namespace KL296NTermProject.Models
     {
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }  
 
-        public DbSet<Rules> Rules { get; set; }
-
         public DbSet<Topic> Topics { get; set; }
 
         public DbSet<Video> Videos { get; set; }

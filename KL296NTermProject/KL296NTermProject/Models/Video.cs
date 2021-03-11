@@ -20,7 +20,5 @@ namespace KL296NTermProject.Models
 
         public string URL { get; set; }
 
-        [ForeignKey("VideosID")]
-        public Topic Topic { get; set; }
     }
 }

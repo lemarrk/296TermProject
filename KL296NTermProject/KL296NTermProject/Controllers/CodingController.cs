@@ -9,12 +9,17 @@ namespace KL296NTermProject.Controllers
 {
     public class CodingController : Controller
     {
+        private DataDbContext context;
+
+        public CodingController(DataDbContext _context)
+        {
+            context = _context;
+        }
+
         public IActionResult CppMessage()
         {
-            List<Message> messages = new List<Message>();
-            messages.Add(new Message());
-
-            return View("~/Views/Coding/CPP/Message.cshtml", messages);
+            var posts = context.Posts.ToList();
+            return View("~/Views/Coding/CPP/Message.cshtml", posts);
         }
 
         public IActionResult CppTopic()
@@ -68,6 +73,22 @@ namespace KL296NTermProject.Controllers
             m = new Message();
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCppMessage(int id)
+        {
+            var post = context.Posts.Find(id);
+
+            if (post != null)
+            {
+               // var post = posts.Where(p => p.MessageID == id).FirstOrDefault();
+
+                context.Posts.Remove(post);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("CppMessage");
         }
     }
 }

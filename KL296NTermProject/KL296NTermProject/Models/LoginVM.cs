@@ -17,6 +17,6 @@ namespace KL296NTermProject.Models
 
         public bool alreadyLoggedIn { get; set; } = false;
 
-        public Rules rules { get; set; }
+        public RulesVm rules { get; set; }
     }
 }

@@ -10,13 +10,16 @@ namespace KL296NTermProject.Controllers
     public class AccountController : Controller
     {
 
-
         public IActionResult Index()
         {
+            RulesVm rules = new RulesVm();
+            rules.Rule = new List<string>();
+            rules.Rule.Add("Treat Others With Respect");
+            rules.Rule.Add("No Politics");
+            rules.Rule.Add("All the rules from Lcc apply");
+
             LoginVM login = new LoginVM();
-            login.rules = new Rules();
-            login.rules.Rule = new List<string>();
-            login.rules.Rule.Add("Treat Others With Respect");
+            login.rules = rules;
 
             return View(login);
         }
