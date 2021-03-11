@@ -105,5 +105,15 @@ else
     </form>
 }
 
-<h1 style="float:right">Rules</h1>
+<div style="float:right"><p>Rules</p></div>
+<h1>Conduct guide</h1>
+<p>
+    This guide is for everyone's enjoyment and safety
+</p>
+<ol>
+    @foreach (var rule in Model.rules.Rule)
+    {
+     <li><h1>@rule</h1></li>
+    }
+</ol>
 

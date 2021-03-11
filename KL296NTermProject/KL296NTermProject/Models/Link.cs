@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace KL296NTermProject.Models
 {
     public class Link
     {
+        [Key]
         public int LinkID { get; set; }
 
         public string Sender { get; set; }
@@ -18,5 +21,8 @@ namespace KL296NTermProject.Models
         public string URL { get; set; }
 
         public string UrlName { get; set; }
+
+        [ForeignKey("LinksID")]
+        public Topic Topic { get; set; }
     }
 }

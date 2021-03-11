@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace KL296NTermProject.Models
 {
     public class Video
     {
+        [Key]
         public int VideoID { get; set; }
 
         public string Sender { get; set; }
@@ -16,5 +19,8 @@ namespace KL296NTermProject.Models
         public DateTime DateSent { get; set; }
 
         public string URL { get; set; }
+
+        [ForeignKey("VideosID")]
+        public Topic Topic { get; set; }
     }
 }

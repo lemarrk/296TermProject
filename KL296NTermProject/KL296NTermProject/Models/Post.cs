@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace KL296NTermProject.Models
 {
     public class Post
     {
+        [Key]
         public int PostID { get; set; }
 
         public List<Message> Messages { get; set; }
@@ -22,5 +25,8 @@ namespace KL296NTermProject.Models
         public string Body { get; set; }
 
         public string Name { get; set; }
+
+        [ForeignKey("PostsID")]
+        public Topic Topic { get; set; }
     }
 }

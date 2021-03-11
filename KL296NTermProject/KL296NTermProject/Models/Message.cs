@@ -9,6 +9,7 @@ namespace KL296NTermProject.Models
 {
     public class Message
     {
+        [Key]
         public int MessageID { get; set; }
 
         public Topic Topic { get; set; }
@@ -18,5 +19,8 @@ namespace KL296NTermProject.Models
         public DateTime DateSent { get; set; }
 
         public string Body { get; set; }
+
+        [ForeignKey("PostsID")]
+        public List<Post> Posts { get; set; }
     }
 }

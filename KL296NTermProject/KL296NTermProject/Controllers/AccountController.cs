@@ -9,9 +9,12 @@ namespace KL296NTermProject.Controllers
 {
     public class AccountController : Controller
     {
+
+
         public IActionResult Index()
         {
             LoginVM login = new LoginVM();
+            login.rules = new Rules();
 
             return View(login);
         }

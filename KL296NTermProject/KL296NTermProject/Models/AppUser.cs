@@ -16,6 +16,6 @@ namespace KL296NTermProject.Models
 
         [StringLength(60, MinimumLength = 1)]
         [Required]
-        public string Name { get; set; }
+        public string Role { get; set; }
     }
 }

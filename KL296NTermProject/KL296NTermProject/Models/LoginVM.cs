@@ -16,5 +16,7 @@ namespace KL296NTermProject.Models
         public bool RememberMe { get; set; }
 
         public bool alreadyLoggedIn { get; set; } = false;
+
+        public Rules rules { get; set; }
     }
 }
