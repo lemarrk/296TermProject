@@ -53,10 +53,7 @@ namespace KL296NTermProject.Migrations
                 {
                     TopicID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TopicName = table.Column<string>(nullable: true),
-                    PostID = table.Column<int>(nullable: true),
-                    VideoID = table.Column<int>(nullable: true),
-                    LinkID = table.Column<int>(nullable: true)
+                    TopicName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,88 +170,95 @@ namespace KL296NTermProject.Migrations
                 name: "Links",
                 columns: table => new
                 {
-                    LinkID = table.Column<int>(nullable: false),
+                    LinkID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Sender = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     URL = table.Column<string>(nullable: true),
-                    UrlName = table.Column<string>(nullable: true)
+                    UrlName = table.Column<string>(nullable: true),
+                    TopicID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Links", x => x.LinkID);
                     table.ForeignKey(
-                        name: "FK_Links_Topics_LinkID",
-                        column: x => x.LinkID,
+                        name: "FK_Links_Topics_TopicID",
+                        column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
-                    PostID = table.Column<int>(nullable: false),
-                    MessageID = table.Column<int>(nullable: true),
+                    PostID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MessageID = table.Column<int>(nullable: false),
                     Sender = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     Body = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    TopicID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.PostID);
                     table.ForeignKey(
-                        name: "FK_Posts_Topics_PostID",
-                        column: x => x.PostID,
+                        name: "FK_Posts_Topics_TopicID",
+                        column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Videos",
                 columns: table => new
                 {
-                    VideoID = table.Column<int>(nullable: false),
+                    VideoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Sender = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
-                    URL = table.Column<string>(nullable: true)
+                    URL = table.Column<string>(nullable: true),
+                    TopicID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Videos", x => x.VideoID);
                     table.ForeignKey(
-                        name: "FK_Videos_Topics_VideoID",
-                        column: x => x.VideoID,
+                        name: "FK_Videos_Topics_TopicID",
+                        column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Messages",
                 columns: table => new
                 {
-                    MessageID = table.Column<int>(nullable: false),
+                    MessageID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Sender = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     Body = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    PostID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.MessageID);
                     table.ForeignKey(
-                        name: "FK_Messages_Posts_MessageID",
-                        column: x => x.MessageID,
+                        name: "FK_Messages_Posts_PostID",
+                        column: x => x.PostID,
                         principalTable: "Posts",
                         principalColumn: "PostID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -295,6 +299,26 @@ namespace KL296NTermProject.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Links_TopicID",
+                table: "Links",
+                column: "TopicID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_PostID",
+                table: "Messages",
+                column: "PostID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_TopicID",
+                table: "Posts",
+                column: "TopicID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Videos_TopicID",
+                table: "Videos",
+                column: "TopicID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

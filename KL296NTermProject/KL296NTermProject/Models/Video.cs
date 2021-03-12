@@ -20,5 +20,7 @@ namespace KL296NTermProject.Models
 
         public string URL { get; set; }
 
+        public Topic Topic { get; set; }
+
     }
 }

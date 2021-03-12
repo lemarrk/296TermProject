@@ -36,9 +36,9 @@ namespace KL296NTermProject.Models
                 //context.Rules.Add(rules);
                 //context.SaveChanges();
 
-                Message m = new Message();
-                m.Body = "";
-                m.DateSent = DateTime.Now;
+                //Message m = new Message();
+                //m.Body = "";
+                //m.DateSent = DateTime.Now;
 
                 Post post = new Post();
                 post.DateSent = DateTime.Now;
@@ -46,23 +46,25 @@ namespace KL296NTermProject.Models
                 post.Subject = "Making yourself an admin";
                 post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
                 post.Name = "NO NAME"; // siteadmin.UserName;
-                post.Message = new List<Message>();
-                post.Message.Add(m);
+                //post.Message = new List<Message>();
+               // post.Message.Add(m);
 
                 Topic topic1 = new Topic();
-                topic1.Post = new List<Post>();
-                topic1.Post.Add(post);
-                topic1.Video = new List<Video>();
-                topic1.Video.Add(new Video());
-                topic1.Link = new List<Link>();
-                topic1.Link.Add(new Link());
+                //topic1.Video = new List<Video>();
+                //topic1.Video.Add(new Video());
+                //topic1.Link = new List<Link>();
+                //topic1.Link.Add(new Link());
 
                 topic1.TopicName = "Cpp";
 
                 context.Topics.Add(topic1);
                 context.SaveChanges();
 
+
                 Topic topic2 = new Topic();
+                topic2.Post = new List<Post>();
+                topic2.Post.Add(post);
+
                 topic2.TopicName = "CSharp";
 
                 context.Topics.Add(topic2);
@@ -70,6 +72,8 @@ namespace KL296NTermProject.Models
 
                 Topic topic3 = new Topic();
                 topic3.TopicName = "JS";
+                topic3.Post = new List<Post>();
+                topic3.Post.Add(post);
 
                 context.Topics.Add(topic3);
                 context.SaveChanges();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KL296NTermProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KL296NTermProject.Controllers
 {
@@ -22,14 +23,32 @@ namespace KL296NTermProject.Controllers
             return View("~/Views/Coding/CPP/Message.cshtml", posts);
         }
 
+        [HttpPost]
+        public IActionResult CppMessage(List<Post> posts)
+        {
+            return View("~/Views/Coding/CPP/Message.cshtml", posts);
+        }
+
         public IActionResult CppTopic()
         {
-            return View("~/Views/Coding/CPP/Topic.cshtml");
+            var topic = new Post();
+            return View("~/Views/Coding/CPP/Topic.cshtml", topic);
+        }
+
+        [HttpPost]
+        public IActionResult CppTopic(Post p)
+        {
+            p.DateSent = DateTime.Now;
+            context.Posts.Add(p);
+            context.SaveChanges();
+   
+            return RedirectToAction("CppMessage");
         }
 
         public IActionResult CppLink()
         {
-            return View("~/Views/Coding/CPP/Link.cshtml");
+            var links = context.Links.ToList();
+            return View("~/Views/Coding/CPP/Link.cshtml", links);
         }
 
         public IActionResult CSharpMessage()
@@ -62,16 +81,13 @@ namespace KL296NTermProject.Controllers
             return View("~/Views/Coding/JS/Link.cshtml");
         }
 
-        public IActionResult Index()
+        public IActionResult Input()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult SaveMessage(Message m)
+        public IActionResult Index()
         {
-            m = new Message();
-
             return View();
         }
 

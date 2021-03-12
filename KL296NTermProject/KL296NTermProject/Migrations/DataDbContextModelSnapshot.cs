@@ -92,7 +92,9 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Link", b =>
                 {
                     b.Property<int>("LinkID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
@@ -102,6 +104,9 @@ namespace KL296NTermProject.Migrations
 
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TopicID")
+                        .HasColumnType("int");
 
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
@@ -111,13 +116,17 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("LinkID");
 
+                    b.HasIndex("TopicID");
+
                     b.ToTable("Links");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Message", b =>
                 {
                     b.Property<int>("MessageID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -125,8 +134,8 @@ namespace KL296NTermProject.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PostID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Sender")
                         .HasColumnType("nvarchar(max)");
@@ -136,13 +145,17 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("MessageID");
 
+                    b.HasIndex("PostID");
+
                     b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>
                 {
                     b.Property<int>("PostID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -150,7 +163,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MessageID")
+                    b.Property<int>("MessageID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -162,7 +175,12 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TopicID")
+                        .HasColumnType("int");
+
                     b.HasKey("PostID");
+
+                    b.HasIndex("TopicID");
 
                     b.ToTable("Posts");
                 });
@@ -174,17 +192,8 @@ namespace KL296NTermProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LinkID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostID")
-                        .HasColumnType("int");
-
                     b.Property<string>("TopicName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VideoID")
-                        .HasColumnType("int");
 
                     b.HasKey("TopicID");
 
@@ -194,7 +203,9 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Video", b =>
                 {
                     b.Property<int>("VideoID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
@@ -205,10 +216,15 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TopicID")
+                        .HasColumnType("int");
+
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VideoID");
+
+                    b.HasIndex("TopicID");
 
                     b.ToTable("Videos");
                 });
@@ -348,36 +364,28 @@ namespace KL296NTermProject.Migrations
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", null)
                         .WithMany("Link")
-                        .HasForeignKey("LinkID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TopicID");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Message", b =>
                 {
-                    b.HasOne("KL296NTermProject.Models.Post", null)
+                    b.HasOne("KL296NTermProject.Models.Post", "Post")
                         .WithMany("Message")
-                        .HasForeignKey("MessageID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostID");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>
                 {
-                    b.HasOne("KL296NTermProject.Models.Topic", null)
+                    b.HasOne("KL296NTermProject.Models.Topic", "Topic")
                         .WithMany("Post")
-                        .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TopicID");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Video", b =>
                 {
-                    b.HasOne("KL296NTermProject.Models.Topic", null)
+                    b.HasOne("KL296NTermProject.Models.Topic", "Topic")
                         .WithMany("Video")
-                        .HasForeignKey("VideoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TopicID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

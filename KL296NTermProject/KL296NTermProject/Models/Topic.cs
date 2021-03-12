@@ -14,19 +14,10 @@ namespace KL296NTermProject.Models
 
         public string TopicName { get; set; }
 
-        public int? PostID { get; set; }
+        public List<Post> Post { get; set; }
 
-        [ForeignKey("PostID")]
-        public ICollection<Post> Post { get; set; }
+        public List<Video> Video { get; set; }
 
-        public int? VideoID { get; set; }
-
-        [ForeignKey("VideoID")]
-        public ICollection<Video> Video { get; set; }
-
-        public int? LinkID { get; set; }
-
-        [ForeignKey("LinkID")]
-        public ICollection<Link> Link { get; set; }
+        public List<Link> Link { get; set; }
     }
 }
