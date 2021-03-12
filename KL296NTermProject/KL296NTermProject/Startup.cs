@@ -36,7 +36,7 @@ namespace KL296NTermProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -50,7 +50,7 @@ namespace KL296NTermProject
             }
 
             var services = app.ApplicationServices;
-            var context = services.GetRequiredService<DataDbContext>();
+            //var context = services.GetRequiredService<DataDbContext>();
             var usr = services.GetRequiredService<UserManager<AppUser>>();
             var role = services.GetRequiredService<RoleManager<IdentityRole>>();
             // var role = services.GetRequiredService<UserManager<IdentityRole>>();
