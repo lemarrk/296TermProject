@@ -3,11 +3,11 @@
 
 <h1 class="mb-2">Manage Users</h1>
 
-<h5 class="mt-2"><a asp-action="Add">Add A User</a></h5>
+<h5 class="mt-2"><a asp-action="Login" asp-controller="Account">Add A User</a></h5>
 
 <table class="table table-bordered table-striped table-sm">
     <thead>
-        <tr><th>UserName</th><th>Roles</th><th></th><th></th><th></th><th></th>
+        <tr><th>UserName</th><th>Roles</th><th></th><th></th><th></th> 
         <tr>
     </thead>
     <tbody>
@@ -19,39 +19,52 @@
         {
             @foreach (AppUser usr in Model.Users)
             {
-                <tr>
-                    <td>@usr.UserName</td>
+    <tr>
+        <td>@usr.UserName</td>
 
-                    <td>
-                        @foreach (string roleName in usr.RoleNames)
-                        {
-                            <div>@roleName</div>
-                        }
-                    </td>
+        <td>
+            @foreach (string roleName in usr.RoleNames)
+            {
 
-                    <td>
-                        <form method="post" asp-action="Delete" asp-route-id="@usr.Id">
-                            <button type="submit" class="btn btn-primary">
-                                Delete User
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" asp-action="AddToAdmin" asp-route-id="@usr.Id">
-                            <button type="submit" class="btn btn-primary">
-                                Add to admin
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@usr.Id">
-                            <button type="submit" class="btn btn-primary">
-                                RemoveFromAdmin
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                <div>@roleName</div>
             }
+        </td>
+
+        @if (usr.Name != "Site Admin")
+        {
+            <td>
+                <form method="post" asp-action="Delete" asp-route-id="@usr.Id">
+                    <button type="submit" class="btn btn-primary">
+                        Delete User
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="post" asp-action="AddToAdmin" asp-route-id="@usr.Id">
+                    <button type="submit" class="btn btn-primary">
+                        Add to admin
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@usr.Id">
+                    <button type="submit" class="btn btn-primary">
+                        RemoveFromAdmin
+                    </button>
+                </form>
+            </td>
+        }
+        else
+        {
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        }
+    </tr>
+        }
         }
     </tbody>
 </table>
@@ -73,8 +86,10 @@ else
         <tbody>
             @foreach (var role in Model.Roles)
             {
-                <tr>
-                    <td> @role.Name</td>
+            <tr>
+                <td> @role.Name</td>
+                @if (role.Name != "Admin")
+                {
                     <td>
                         <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
                             <button type="submit" class="btn btn-primary">
@@ -82,7 +97,13 @@ else
                             </button>
                         </form>
                     </td>
-                </tr>
+                }
+                else
+                {
+                    <td>
+                    </td>
+                }
+            </tr>
             }
         </tbody>
     </table>

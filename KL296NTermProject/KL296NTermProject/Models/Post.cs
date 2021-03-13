@@ -27,6 +27,5 @@ namespace KL296NTermProject.Models
         public string Name { get; set; }
 
         public Topic Topic { get; set; }
-
     }
 }

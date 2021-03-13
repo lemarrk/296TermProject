@@ -47,8 +47,7 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
-            // Role = model.Role ommitted due to time constraints
-            var user = new AppUser { UserName = model.UserName, Name = model.UserName};
+            var user = new AppUser { UserName = model.UserName, Name = model.UserName, Role = model.Role};
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
