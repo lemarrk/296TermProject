@@ -115,7 +115,6 @@ namespace KL296NTermProject.Controllers
             return RedirectToAction("Index");
         }
 
-
         // create admin role here
         [HttpPost]
         public async Task<IActionResult> CreateAdminRole()
@@ -135,7 +134,12 @@ namespace KL296NTermProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.UserName };
+                //if(model.Role == "Member")
+                //{
+                //    IdentityRole adminRole = await roleManager.FindByNameAsync("Member");
+                //}
+
+                var user = new AppUser { UserName = model.UserName, Role = model.Role };
                 var result = await usrManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)

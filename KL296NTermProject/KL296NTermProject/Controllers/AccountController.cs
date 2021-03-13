@@ -12,31 +12,26 @@ namespace KL296NTermProject.Controllers
     {
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
-        bool loggedIn = false;
+        private RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<AppUser> u, SignInManager<AppUser> s)
+        public AccountController(UserManager<AppUser> u, SignInManager<AppUser> s, RoleManager<IdentityRole> _roleManager)
         {
             userManager = u;
             signInManager = s;
+            roleManager = _roleManager;
         }
 
-
-        public IActionResult Index(string returnURL = "")
+        [HttpGet]
+        public IActionResult Login(string returnURL = "")
         {
             LoginVM login = new LoginVM();
             login.ReturnURL = returnURL;
-
+            login.RuleVM = new RulesVM();
             RulesVM rules = new RulesVM();
-            rules.rules = new List<string>();
-            rules.rules.Add("Treat Others With Respect");
-            rules.rules.Add("No Politics");
-            rules.rules.Add("All the rules from Lcc apply");
-
-            login.RuleVM = rules;
-
-            if(loggedIn) {
-                login.alreadyLoggedIn = true;
-            }
+            login.RuleVM.rules = new List<string>();
+            login.RuleVM.rules.Add("Treat Others With Respect");
+            login.RuleVM.rules.Add("No Politics");
+            login.RuleVM.rules.Add("All the rules from Lcc apply");
 
             return View(login);
         }
@@ -52,23 +47,20 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
+            // Role = model.Role ommitted due to time constraints
+            var user = new AppUser { UserName = model.UserName, Name = model.UserName};
+            var result = await userManager.CreateAsync(user, model.Password);
 
-            if (ModelState.IsValid)
+            if (result.Succeeded)
             {
-                var user = new AppUser { UserName = model.UserName, Name = model.UserName};
-                var result = await userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                foreach (var err in result.Errors)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: true);
-                    return RedirectToAction("Index", "Admin");
-                }
-                else
-                {
-                    foreach (var err in result.Errors)
-                    {
-                        ModelState.AddModelError("", err.Description);
-                    }
+                    ModelState.AddModelError("", err.Description);
                 }
             }
 
@@ -77,33 +69,30 @@ namespace KL296NTermProject.Controllers
 
         // register end
 
-        [HttpPost]
         public async Task<IActionResult> LogOut()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
         {
-            if (ModelState.IsValid)
+
+            var result = await signInManager.PasswordSignInAsync(model.Name, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
+
+            if (result.Succeeded)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Name, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
-
-                if (result.Succeeded)
-                { 
-                    if (!string.IsNullOrEmpty(model.ReturnURL) && Url.IsLocalUrl(model.ReturnURL))
-                    {
-                        return Redirect(model.ReturnURL);
-                    }
-                    else
-                    {
-
-                        loggedIn = true;
-                        return RedirectToAction("Index", "Home");
-                    }
+                if (!string.IsNullOrEmpty(model.ReturnURL) && Url.IsLocalUrl(model.ReturnURL))
+                {
+                    return Redirect(model.ReturnURL);
                 }
+                else
+                {
+
+                    return RedirectToAction("Login", "Account");
+                }
+
             }
 
             ModelState.AddModelError("", "Invalid UserName/Password");

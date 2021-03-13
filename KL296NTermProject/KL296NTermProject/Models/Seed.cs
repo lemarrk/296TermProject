@@ -25,11 +25,11 @@ namespace KL296NTermProject.Models
                 var adminRole = roleManager.CreateAsync(new IdentityRole("Member")).Result;
                 adminRole = roleManager.CreateAsync(new IdentityRole("Admin")).Result;
                 // add user called "SiteAdmin" to the user manager
-                var siteadmin = new AppUser() { UserName = "SiteAdmin", Role = "Site Admin" };
+                var siteadmin = new AppUser { UserName = "SiteAdmin", Name = "Site Admin", Role = "Admin" };
                 //
                 usrManager.CreateAsync(siteadmin, "Abc123!").Wait();
                 //
-                IdentityRole admin = roleManager.FindByNameAsync("Admin").Result;
+                var admin = roleManager.FindByNameAsync("Admin").Result;
                 // 
                 usrManager.AddToRoleAsync(siteadmin, admin.Name);
 
@@ -45,7 +45,7 @@ namespace KL296NTermProject.Models
                 post.Sender = "Website Creator";
                 post.Subject = "Making yourself an admin";
                 post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
-                post.Name = "NO NAME"; // siteadmin.UserName;
+                post.Name = siteadmin.UserName;
                 //post.Message = new List<Message>();
                // post.Message.Add(m);
 

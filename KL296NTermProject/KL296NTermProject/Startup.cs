@@ -27,8 +27,8 @@ namespace KL296NTermProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<AppUser, IdentityRole>()
-           .AddEntityFrameworkStores<DataDbContext>()
-           .AddDefaultTokenProviders();
+                      .AddEntityFrameworkStores<DataDbContext>()
+                      .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
 
@@ -50,10 +50,10 @@ namespace KL296NTermProject
             }
 
             var services = app.ApplicationServices;
-            //var context = services.GetRequiredService<DataDbContext>();
+            // var context = services.GetRequiredService<DatabaseContext>();
             var usr = services.GetRequiredService<UserManager<AppUser>>();
             var role = services.GetRequiredService<RoleManager<IdentityRole>>();
-            // var role = services.GetRequiredService<UserManager<IdentityRole>>();
+            //s var role = services.GetRequiredService<UserManager<IdentityRole>>();
             Seed.starter(context, usr, role);
 
             app.UseHttpsRedirection();

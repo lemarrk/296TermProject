@@ -8,12 +8,13 @@ namespace KL296NTermProject.Models
 {
     public class LoginVM
     {
+        [StringLength(60, MinimumLength = 1)]
         [Required(ErrorMessage = "Enter a name")]
-        [StringLength(255)]
         public string Name { get; set; }
 
+
+        [StringLength(60, MinimumLength = 1)]
         [Required(ErrorMessage = "Enter a password")]
-        [StringLength(255)]
         public string Password { get; set; }
 
         public string ReturnURL { get; set; }
