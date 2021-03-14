@@ -9,7 +9,6 @@
 
 <p>Coding Dojo Cpp message page</p>
 
-
 <a asp-controller="Coding" asp-action="CppLink">Link to Cpp Link</a>
 <br />
 
@@ -21,6 +20,7 @@
     <td>Body</td>
     <td>Get Messages</td>
     <td>Delete Message</td>
+    <td>Make Post</td>
     @foreach (Post post in Model)
     {
 <tr>
@@ -43,7 +43,10 @@
         <form method="post"><button asp-action="GetCppMessages" asp-controller="Coding" asp-route-id="@post.PostID">Reply</button></form>
     </td>
     <td>
-        <form method="post"><button asp-action="DeleteCppMessage" asp-controller="Coding" asp-route-id="@post.PostID">Delete</button></form>
+        <form method="post"><button asp-action="DeleteCppPost" asp-controller="Coding" asp-route-id="@post.PostID">Delete</button></form>
+    </td>
+    <td>
+        <form method="post"><button asp-action="Input" asp-controller="Coding">Post</button></form>
     </td>
 </tr>
     }

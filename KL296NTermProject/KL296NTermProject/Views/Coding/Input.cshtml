@@ -2,8 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@{ 
-   
+@{
+
 }
 
 @model Post
@@ -12,10 +12,21 @@
 <a asp-controller="Coding" asp-action="CppMessage">Link to Cpp Message</a>
 <br />
 
-<form asp-action="AddCppPost" asp-controller="Coding" method="post" class="form-horizonal">
-    <div asp-validation-summary="All"></div>
-    <!-- form goes here -->
+<div asp-validation-summary="ModelOnly"></div>
+<form asp-action="Input" asp-controller="Coding" method="post" class="form-horizonal">
     <div class="form-group">
+        <fieldset>
+            <legend>Select Topic</legend>
+            <div>
+                <label>Cpp</label>
+                <input type="radio" value="1" name="id" />
+                <label>CSharp</label>
+                <input type="radio" value="2" name="id" />
+                <label>JS</label>
+                <input type="radio" value="3" name="id" />
+            </div>
+        </fieldset>
+        <br />
         <input class="form-control" placeholder="Input Sender Name" asp-for="Sender" />
         <br />
         <input class="form-control" placeholder="Input Subject Title" asp-for="Subject" />

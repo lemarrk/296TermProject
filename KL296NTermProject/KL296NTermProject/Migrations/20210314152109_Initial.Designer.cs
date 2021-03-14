@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KL296NTermProject.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20210313123152_Initial2")]
-    partial class Initial2
+    [Migration("20210314152109_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,7 +112,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TopicID")
+                    b.Property<int>("TopicID")
                         .HasColumnType("int");
 
                     b.Property<string>("URL")
@@ -123,7 +123,8 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("LinkID");
 
-                    b.HasIndex("TopicID");
+                    b.HasIndex("TopicID")
+                        .IsUnique();
 
                     b.ToTable("Links");
                 });
@@ -141,7 +142,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostID")
+                    b.Property<int>("PostID")
                         .HasColumnType("int");
 
                     b.Property<string>("Sender")
@@ -182,12 +183,13 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TopicID")
+                    b.Property<int>("TopicID")
                         .HasColumnType("int");
 
                     b.HasKey("PostID");
 
-                    b.HasIndex("TopicID");
+                    b.HasIndex("TopicID")
+                        .IsUnique();
 
                     b.ToTable("Posts");
                 });
@@ -223,7 +225,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TopicID")
+                    b.Property<int>("TopicID")
                         .HasColumnType("int");
 
                     b.Property<string>("URL")
@@ -231,7 +233,8 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("VideoID");
 
-                    b.HasIndex("TopicID");
+                    b.HasIndex("TopicID")
+                        .IsUnique();
 
                     b.ToTable("Videos");
                 });
@@ -370,29 +373,37 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Link", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithMany("Link")
-                        .HasForeignKey("TopicID");
+                        .WithOne("Link")
+                        .HasForeignKey("KL296NTermProject.Models.Link", "TopicID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Message", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Post", "Post")
                         .WithMany("Message")
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithMany("Post")
-                        .HasForeignKey("TopicID");
+                        .WithOne("Post")
+                        .HasForeignKey("KL296NTermProject.Models.Post", "TopicID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Video", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithMany("Video")
-                        .HasForeignKey("TopicID");
+                        .WithOne("Video")
+                        .HasForeignKey("KL296NTermProject.Models.Video", "TopicID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

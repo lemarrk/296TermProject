@@ -5,46 +5,40 @@
    
 }
 
-@model List<Post> 
+@model List<Message> 
 
 <p>Coding Dojo Cpp message page</p>
 
 
-<a asp-controller="Coding" asp-action="CppLink">Link to Cpp Link</a>
+<a asp-controller="Coding" asp-action="CppPost">Link to Cpp Link</a>
 <br />
 
 <table class="table table-striped table-bordered">
     <td>Sender</td>
-    <td>Reciever</td>
     <td>Subject</td>
     <td>Date Sent</td>
     <td>Body</td>
     <td>Get Messages</td>
     <td>Delete Message</td>
-    @foreach (Post post in Model)
+
+    @foreach (Message post in Model)
     {
-<tr>
-    <td>
-        @post.Sender
-    </td>
-    <td>
-        @post.Name
-    </td>
-    <td>
-        @post.Subject
-    </td>
-    <td>
-        @post.DateSent
-    </td>
-    <td>
-        @post.Body
-    </td>
-    <td>
-        <form method="post"><button asp-action="GetCppMessages" asp-controller="Coding" asp-route-id="@post.PostID">Reply</button></form>
-    </td>
-    <td>
-        <form method="post"><button asp-action="DeleteCppMessage" asp-controller="Coding" asp-route-id="@post.PostID">Delete</button></form>
-    </td>
-</tr>
+        <tr>
+            <td>
+                @post.Sender
+            </td>
+            <td>
+                @post.Subject
+            </td>
+            <td>
+                @post.DateSent
+            </td>
+            <td>
+                @post.Body
+            </td>
+            <td>
+                <form method="post"><button asp-action="DeleteCppMessage" asp-controller="Coding" asp-route-id="1">Delete</button></form>
+            </td>
+        </tr>
     }
 </table>

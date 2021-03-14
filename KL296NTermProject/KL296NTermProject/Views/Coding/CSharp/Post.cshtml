@@ -4,22 +4,26 @@
 @{
 }
 <p>Coding Dojo CSharp message page</p>
-@model List<Message>
+@model List<Post>
 
-<a asp-controller="Coding" asp-action="CSharpPost">Link to CSharp Links</a>
+<a asp-controller="Coding" asp-action="CSharpLink">Link to CSharp Links</a>
 <br />
 <table class="table table-striped table-bordered">
     <td>Sender</td>
+    <td>Reciever</td>
     <td>Subject</td>
     <td>Date Sent</td>
     <td>Body</td>
     <td>Get Messages</td>
     <td>Delete Message</td>
-    @foreach (Message post in Model)
+    @foreach (Post post in Model)
     {
         <tr>
             <td>
                 @post.Sender
+            </td>
+            <td>
+                @post.Name
             </td>
             <td>
                 @post.Subject
@@ -31,7 +35,10 @@
                 @post.Body
             </td>
             <td>
-                <form method="post"><button asp-action="DeleteCSharpMessage" asp-controller="Coding" asp-route-id="2">Delete</button></form>
+                <form method="post"><button asp-action="GetCsharpPosts" asp-controller="Coding" asp-route-id="@post.PostID">Reply</button></form>
+            </td>
+            <td>
+                <form method="post"><button asp-action="DeleteCSharpPost" asp-controller="Coding" asp-route-id="@post.PostID">Delete</button></form>
             </td>
         </tr>
     }

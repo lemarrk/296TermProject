@@ -35,14 +35,14 @@ namespace KL296NTermProject.Models
 
 
                 Topic topic1 = new Topic();
-                topic1.Post = new List<Post>();
+                //topic1.Post = new Post();
                 topic1.TopicName = "Cpp";
                 context.Topics.Add(topic1);
                 context.SaveChanges();
 
 
                 Topic topic2 = new Topic();
-                topic2.Post = new List<Post>();
+                //topic2.Post = new Post();
                 topic2.TopicName = "CSharp";
                 context.Topics.Add(topic2);
                 context.SaveChanges();
@@ -50,7 +50,7 @@ namespace KL296NTermProject.Models
 
                 Topic topic3 = new Topic();
                 topic3.TopicName = "JS";
-                topic3.Post = new List<Post>();
+               // topic3.Post = new Post();
                 context.Topics.Add(topic3);
                 context.SaveChanges();
 

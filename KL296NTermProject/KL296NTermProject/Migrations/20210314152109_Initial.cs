@@ -178,7 +178,7 @@ namespace KL296NTermProject.Migrations
                     DateSent = table.Column<DateTime>(nullable: false),
                     URL = table.Column<string>(nullable: true),
                     UrlName = table.Column<string>(nullable: true),
-                    TopicID = table.Column<int>(nullable: true)
+                    TopicID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,7 +188,7 @@ namespace KL296NTermProject.Migrations
                         column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,7 +203,7 @@ namespace KL296NTermProject.Migrations
                     DateSent = table.Column<DateTime>(nullable: false),
                     Body = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    TopicID = table.Column<int>(nullable: true)
+                    TopicID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,7 +213,7 @@ namespace KL296NTermProject.Migrations
                         column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,7 +226,7 @@ namespace KL296NTermProject.Migrations
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     URL = table.Column<string>(nullable: true),
-                    TopicID = table.Column<int>(nullable: true)
+                    TopicID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,7 +236,7 @@ namespace KL296NTermProject.Migrations
                         column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,7 +249,7 @@ namespace KL296NTermProject.Migrations
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     Body = table.Column<string>(nullable: true),
-                    PostID = table.Column<int>(nullable: true)
+                    PostID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -259,7 +259,7 @@ namespace KL296NTermProject.Migrations
                         column: x => x.PostID,
                         principalTable: "Posts",
                         principalColumn: "PostID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -304,7 +304,8 @@ namespace KL296NTermProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Links_TopicID",
                 table: "Links",
-                column: "TopicID");
+                column: "TopicID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_PostID",
@@ -314,12 +315,14 @@ namespace KL296NTermProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_TopicID",
                 table: "Posts",
-                column: "TopicID");
+                column: "TopicID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Videos_TopicID",
                 table: "Videos",
-                column: "TopicID");
+                column: "TopicID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

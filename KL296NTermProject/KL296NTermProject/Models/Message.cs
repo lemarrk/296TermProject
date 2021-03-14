@@ -20,6 +20,7 @@ namespace KL296NTermProject.Models
 
         public string Body { get; set; }
 
+        [ForeignKey("PostID")]
         public int PostID { get; set; }
 
         public Post Post { get; set; }

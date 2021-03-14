@@ -18,11 +18,48 @@ namespace KL296NTermProject.Controllers
             context = _context;
         }
 
-        [HttpGet]
+        [Authorize]
+        [HttpPost]
+        public IActionResult Input(Post p, string id)
+        {
+            //p.TopicID = Convert.ToInt32(id);
+
+            switch(id)
+            {
+                case "1":
+                    context.Posts.Add(p);
+                    context.SaveChanges();
+                    var posts = context.Posts.ToList();
+                    return View("~/Views/Coding/Cpp/Post.cshtml", posts);
+
+                case "2":
+                    context.Posts.Add(p);
+                    context.SaveChanges();
+                    var posts1 = context.Posts.ToList();
+                    return View("~/Views/Coding/CSharp/Post.cshtml", posts1);
+
+                case "3":
+                    context.Posts.Add(p);
+                    context.SaveChanges();
+                    var posts2 = context.Posts.ToList();
+                    return View("~/Views/Coding/JS/Post.cshtml", posts2);
+
+                default:
+                    break;
+            }
+
+            return View(new Post());
+        }
+
+        // 
+
+        [HttpGet] 
         public IActionResult CppMessage()
         {
-            var posts = context.Posts.Where(o => o.Topic.TopicName ==  "Cpp").ToList();
-            return View("~/Views/Coding/CPP/Message.cshtml", posts);
+            //var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "Cpp").Select(o => o).ToList();
+            var message = context.Posts.Where(o => o.Topic.TopicName == "Cpp").ToList();
+           
+            return View("~/Views/Coding/CPP/Message.cshtml", message);
         }
 
         //[Authorize]
@@ -32,8 +69,9 @@ namespace KL296NTermProject.Controllers
         //    return View("~/Views/Coding/CPP/Message.cshtml", posts);
         //}
 
+
         [Authorize]
-        public IActionResult CppTopic()
+        public IActionResult CppInput()
         {
             var topic = new Post();
             return View("~/Views/Coding/CPP/Topic.cshtml", topic);
@@ -50,21 +88,22 @@ namespace KL296NTermProject.Controllers
             return RedirectToAction("CppMessage");
         }
 
-        [Authorize]
-        public IActionResult CppInput()
+        [HttpGet]
+        public IActionResult CppPost()
         {
-            return View("~/Views/Coding/CPP/Input.cshtml", new Link());
+            var posts = context.Posts.Where(o => o.Topic.TopicName == "Cpp").Select(o => o).ToList();
+            return View("~/Views/Coding/CPP/Post.cshtml", posts);
         }
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult CppInput(Link l)
-        {
-            context.Links.Add(l);
-            context.SaveChanges();
+        //[Authorize]
+        //[HttpPost]
+        //public IActionResult CppInput(Link l)
+        //{
+        //    context.Links.Add(l);
+        //    context.SaveChanges();
 
-            return RedirectToAction("CppLink");
-        }
+        //    return RedirectToAction("CppLink");
+        //}
 
         [Authorize]
         public IActionResult CppLink()
@@ -78,7 +117,7 @@ namespace KL296NTermProject.Controllers
         [HttpGet]
         public IActionResult CSharpMessage()
         {
-            var posts = context.Posts.Where(o => o.Topic.TopicName == "CSharp").ToList();
+            var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "CSharp").ToList();
             return View("~/Views/Coding/CSharp/Message.cshtml", posts);
         }
 
@@ -106,21 +145,21 @@ namespace KL296NTermProject.Controllers
             return RedirectToAction("CSharpMessage");
         }
 
-        [Authorize]
-        public IActionResult CSharpInput()
-        {
-            return View("~/Views/Coding/CSharp/Input.cshtml", new Link());
-        }
+        //[Authorize]
+        //public IActionResult CSharpInput()
+        //{
+        //    return View("~/Views/Coding/CSharp/Input.cshtml", new Link());
+        //}
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult CSharpInput(Link l)
-        {
-            context.Links.Add(l);
-            context.SaveChanges();
+        //[Authorize]
+        //[HttpPost]
+        //public IActionResult CSharpInput(Link l)
+        //{
+        //    context.Links.Add(l);
+        //    context.SaveChanges();
 
-            return RedirectToAction("CSharpLink");
-        }
+        //    return RedirectToAction("CSharpLink");
+        //}
 
 
         [Authorize]
@@ -135,7 +174,7 @@ namespace KL296NTermProject.Controllers
         [HttpGet]
         public IActionResult JSMessage()
         {
-            var posts = context.Posts.Where(o => o.Topic.TopicName == "JS").ToList();
+            var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "JS").ToList();
             return View("~/Views/Coding/JS/Message.cshtml", posts);
         }
 
@@ -156,21 +195,21 @@ namespace KL296NTermProject.Controllers
             return RedirectToAction("JSMessage");
         }
 
-        [Authorize]
-        public IActionResult JSInput()
-        {
-            return View("~/Views/Coding/JS/Input.cshtml", new Link());
-        }
+        //[Authorize]
+        //public IActionResult JSInput()
+        //{
+        //    return View("~/Views/Coding/JS/Input.cshtml", new Link());
+        //}
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult JSInput(Link l)
-        {
-            context.Links.Add(l);
-            context.SaveChanges();
+        //[Authorize]
+        //[HttpPost]
+        //public IActionResult JSInput(Link l)
+        //{
+        //    context.Links.Add(l);
+        //    context.SaveChanges();
 
-            return RedirectToAction("JSLink");
-        }
+        //    return RedirectToAction("JSLink");
+        //}
 
         [Authorize]
         public IActionResult JSLink()
@@ -181,10 +220,13 @@ namespace KL296NTermProject.Controllers
 
         // begin data manipulation
 
+
         [Authorize]
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult GetCppMessages(int id)
         {
-            return View();
+            var messages = context.Messages.Include("Posts").Where(p => p.PostID == id).ToList();
+            return RedirectToAction("CppMessage", "Coding", messages);
         }
 
         [Authorize]

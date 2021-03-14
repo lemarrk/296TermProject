@@ -22,7 +22,7 @@ namespace KL296NTermProject.Models
 
         public string UrlName { get; set; }
 
-        [ForeignKey("Topic")]
+        [ForeignKey("TopicID")]
         public int TopicID { get; set; }
 
         public Topic Topic { get; set; }

@@ -14,6 +14,7 @@ namespace KL296NTermProject.Models
 
         public int MessageID { get; set; }
 
+        [InverseProperty("Post")]
         public List<Message> Message { get; set; }
 
         public string Sender { get; set; }
@@ -26,7 +27,7 @@ namespace KL296NTermProject.Models
 
         public string Name { get; set; }
 
-        [ForeignKey("Topic")]
+        [ForeignKey("TopicID")]
         public int TopicID { get; set; }
 
         public Topic Topic { get; set; }
