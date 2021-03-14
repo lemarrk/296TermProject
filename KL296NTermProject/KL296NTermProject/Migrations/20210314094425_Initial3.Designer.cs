@@ -4,14 +4,16 @@ using KL296NTermProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KL296NTermProject.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210314094425_Initial3")]
+    partial class Initial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,17 +199,8 @@ namespace KL296NTermProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LinkID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostID")
-                        .HasColumnType("int");
-
                     b.Property<string>("TopicName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VideoID")
-                        .HasColumnType("int");
 
                     b.HasKey("TopicID");
 

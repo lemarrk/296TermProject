@@ -68,7 +68,7 @@ namespace KL296NTermProject.Controllers
 
         // register end
 
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");

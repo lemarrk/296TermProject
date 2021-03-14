@@ -33,12 +33,36 @@ namespace KL296NTermProject.Models
                 // 
                 usrManager.AddToRoleAsync(siteadmin, admin.Name);
 
+
+                Topic topic1 = new Topic();
+                topic1.Post = new List<Post>();
+                topic1.TopicName = "Cpp";
+                context.Topics.Add(topic1);
+                context.SaveChanges();
+
+
+                Topic topic2 = new Topic();
+                topic2.Post = new List<Post>();
+                topic2.TopicName = "CSharp";
+                context.Topics.Add(topic2);
+                context.SaveChanges();
+
+
+                Topic topic3 = new Topic();
+                topic3.TopicName = "JS";
+                topic3.Post = new List<Post>();
+                context.Topics.Add(topic3);
+                context.SaveChanges();
+
+
                 Link link = new Link();
                 link.URL = "www.cplusplus.com";
                 link.UrlName = "site";
                 link.Sender = "me";
                 link.DateSent = DateTime.Now;
                 link.Subject = "A good informative site";
+                link.TopicID = context.Topics.Where(o => o.TopicName == "Cpp").FirstOrDefault().TopicID;
+
                 context.Links.Add(link);
                 context.SaveChanges();
 
@@ -48,30 +72,10 @@ namespace KL296NTermProject.Models
                 post.Subject = "Making yourself an admin";
                 post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
                 post.Name = siteadmin.UserName;
-                //post.Message = new List<Message>();
-                // post.Message.Add(m);
-
+                post.TopicID = context.Topics.Where(o => o.TopicName == "Cpp").FirstOrDefault().TopicID;
+                post.Message = new List<Message>();
+              
                 context.Posts.Add(post);
-                context.SaveChanges();
-
-                Topic topic1 = new Topic();
-                topic1.TopicName = "Cpp";
-                context.Topics.Add(topic1);
-                context.SaveChanges();
-
-                Topic topic2 = new Topic();
-                topic2.Post = new List<Post>();
-                topic2.TopicName = "CSharp";
-
-                context.Topics.Add(topic2);
-                context.SaveChanges();
-
-                Topic topic3 = new Topic();
-                topic3.TopicName = "JS";
-                topic3.Post = new List<Post>();
-                topic3.Post.Add(post);
-
-                context.Topics.Add(topic3);
                 context.SaveChanges();
 
             }

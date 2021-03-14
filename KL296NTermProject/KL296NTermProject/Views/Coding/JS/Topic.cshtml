@@ -5,18 +5,20 @@
    
 }
 
-@model Message
+@model Post
 
 <p>JS Topic</p>
 <a asp-controller="Coding" asp-action="JSMessage">Link to JS Message</a>
 <br/>
-<form asp-action="SaveMessage" asp-controller="Coding" method="post" class="form-horizonal">
+<form asp-action="AddJSPost" asp-controller="Coding" method="post" class="form-horizonal">
     <div asp-validation-summary="All"></div>
     <!-- form goes here -->
     <div class="form-group">
         <input class="form-control" placeholder="Input Sender Name" asp-for="Sender" />
         <br />
         <input class="form-control" placeholder="Input Subject Title" asp-for="Subject" />
+        <br />
+        <input class="form-control" placeholder="Input Reciever Name" asp-for="Name" />
         <br />
         <textarea asp-for="Body" placeholder="Enter Text Here..." class="form-control"></textarea>
         <button class="btn-default">Submit</button>

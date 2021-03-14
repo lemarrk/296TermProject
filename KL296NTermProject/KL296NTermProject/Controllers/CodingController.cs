@@ -18,18 +18,19 @@ namespace KL296NTermProject.Controllers
             context = _context;
         }
 
+        [HttpGet]
         public IActionResult CppMessage()
         {
-            var posts = context.Posts.ToList();
+            var posts = context.Posts.Where(o => o.Topic.TopicName ==  "Cpp").ToList();
             return View("~/Views/Coding/CPP/Message.cshtml", posts);
         }
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult CppMessage(List<Post> posts)
-        {
-            return View("~/Views/Coding/CPP/Message.cshtml", posts);
-        }
+        //[Authorize]
+        //[HttpPost]
+        //public IActionResult CppMessage(List<Post> posts)
+        //{
+        //    return View("~/Views/Coding/CPP/Message.cshtml", posts);
+        //}
 
         [Authorize]
         public IActionResult CppTopic()
@@ -50,23 +51,77 @@ namespace KL296NTermProject.Controllers
         }
 
         [Authorize]
+        public IActionResult CppInput()
+        {
+            return View("~/Views/Coding/CPP/Input.cshtml", new Link());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CppInput(Link l)
+        {
+            context.Links.Add(l);
+            context.SaveChanges();
+
+            return RedirectToAction("CppLink");
+        }
+
+        [Authorize]
         public IActionResult CppLink()
         {
             var links = context.Links.ToList();
             return View("~/Views/Coding/CPP/Link.cshtml", links);
         }
 
+        // csharp section
+
+        [HttpGet]
         public IActionResult CSharpMessage()
         {
-            var posts = context.Posts.ToList();
+            var posts = context.Posts.Where(o => o.Topic.TopicName == "CSharp").ToList();
             return View("~/Views/Coding/CSharp/Message.cshtml", posts);
         }
+
+        //[Authorize]
+        //[HttpPost]
+        //public IActionResult CSharpMessage(List<Post> posts)
+        //{
+        //    return View("~/Views/Coding/CSharp/Message.cshtml", posts);
+        //}
 
         [Authorize]
         public IActionResult CSharpTopic()
         {
             return View("~/Views/Coding/CSharp/Topic.cshtml");
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CSharpTopic(Post p)
+        {
+            p.DateSent = DateTime.Now;
+            context.Posts.Add(p);
+            context.SaveChanges();
+
+            return RedirectToAction("CSharpMessage");
+        }
+
+        [Authorize]
+        public IActionResult CSharpInput()
+        {
+            return View("~/Views/Coding/CSharp/Input.cshtml", new Link());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CSharpInput(Link l)
+        {
+            context.Links.Add(l);
+            context.SaveChanges();
+
+            return RedirectToAction("CSharpLink");
+        }
+
 
         [Authorize]
         public IActionResult CSharpLink()
@@ -76,9 +131,11 @@ namespace KL296NTermProject.Controllers
         }
 
 
+        // begin js section
+        [HttpGet]
         public IActionResult JSMessage()
         {
-            var posts = context.Posts.ToList();
+            var posts = context.Posts.Where(o => o.Topic.TopicName == "JS").ToList();
             return View("~/Views/Coding/JS/Message.cshtml", posts);
         }
 
@@ -89,22 +146,65 @@ namespace KL296NTermProject.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public IActionResult JSTopic(Post p)
+        {
+            p.DateSent = DateTime.Now;
+            context.Posts.Add(p);
+            context.SaveChanges();
+
+            return RedirectToAction("JSMessage");
+        }
+
+        [Authorize]
+        public IActionResult JSInput()
+        {
+            return View("~/Views/Coding/JS/Input.cshtml", new Link());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult JSInput(Link l)
+        {
+            context.Links.Add(l);
+            context.SaveChanges();
+
+            return RedirectToAction("JSLink");
+        }
+
+        [Authorize]
         public IActionResult JSLink()
         {
             var links = context.Links.ToList();
             return View("~/Views/Coding/JS/Link.cshtml", links);
         }
 
-        [Authorize]
-        public IActionResult Input()
-        {
-            return View();
-        }
+        // begin data manipulation
 
         [Authorize]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddCppLink(Link l)
+        {
+            context.Links.Add(l);
+            context.SaveChanges();
+
+            return RedirectToAction("CppLink", "Coding");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddCppPost(Post p)
+        {
+            context.Posts.Add(p);
+            context.SaveChanges();
+
+            return RedirectToAction("CppTopic", "Coding");
         }
 
         [Authorize]

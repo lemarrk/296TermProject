@@ -20,6 +20,8 @@ namespace KL296NTermProject.Models
 
         public string Body { get; set; }
 
+        public int PostID { get; set; }
+
         public Post Post { get; set; }
     }
 }
