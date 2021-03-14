@@ -58,7 +58,8 @@ namespace KL296NTermProject.Controllers
 
         public IActionResult CSharpMessage()
         {
-            return View("~/Views/Coding/CSharp/Message.cshtml", new List<Message>());
+            var posts = context.Posts.ToList();
+            return View("~/Views/Coding/CSharp/Message.cshtml", posts);
         }
 
         [Authorize]
@@ -70,13 +71,15 @@ namespace KL296NTermProject.Controllers
         [Authorize]
         public IActionResult CSharpLink()
         {
-            return View("~/Views/Coding/CSharp/Link.cshtml");
+            var links = context.Links.ToList();
+            return View("~/Views/Coding/CSharp/Link.cshtml",links);
         }
 
 
         public IActionResult JSMessage()
         {
-            return View("~/Views/Coding/JS/Message.cshtml", new List<Message>());
+            var posts = context.Posts.ToList();
+            return View("~/Views/Coding/JS/Message.cshtml", posts);
         }
 
         [Authorize]
@@ -88,7 +91,8 @@ namespace KL296NTermProject.Controllers
         [Authorize]
         public IActionResult JSLink()
         {
-            return View("~/Views/Coding/JS/Link.cshtml");
+            var links = context.Links.ToList();
+            return View("~/Views/Coding/JS/Link.cshtml", links);
         }
 
         [Authorize]
@@ -105,7 +109,24 @@ namespace KL296NTermProject.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult DeleteMessage(int id)
+        public IActionResult DeleteCppLink(int id)
+        {
+            var link = context.Links.Find(id);
+
+            if (link != null)
+            {
+                // var post = posts.Where(p => p.MessageID == id).FirstOrDefault()
+                context.Links.Remove(link);
+                context.SaveChanges();
+                return RedirectToAction("CppLink", "Coding");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult DeleteCppMessage(int id)
         {
             var post = context.Posts.Find(id);
 
@@ -114,21 +135,7 @@ namespace KL296NTermProject.Controllers
                // var post = posts.Where(p => p.MessageID == id).FirstOrDefault()
                 context.Posts.Remove(post);
                 context.SaveChanges();
-            }
-
-            var topic = context.Posts.Include("Topic").Where(o => o.PostID == id).Select(o => o.Topic.TopicName).First();
-
-            switch (topic)
-            {
-                case "Cpp":
-                    RedirectToAction("CppMessage", "Coding");
-                    break;
-                case "CSharp":
-                    RedirectToAction("CSharpMessage", "Coding");
-                    break;
-                case "JS":
-                    RedirectToAction("JSMessage", "Coding");
-                    break;
+                return RedirectToAction("CppMessage", "Coding");
             }
 
             return RedirectToAction("Index", "Home");

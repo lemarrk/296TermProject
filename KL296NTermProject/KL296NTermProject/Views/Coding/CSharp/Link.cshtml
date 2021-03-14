@@ -4,6 +4,34 @@
 @{
 }
 
+@model List<Link>
 <p>csharp link</p>
 <a asp-controller="Coding" asp-action="CSharpTopic">Link to CSharp Topic</a>
 <br />
+<table class="table table-striped table-bordered">
+<td>URL</td>
+<td>Subject</td>
+<td>Date Sent</td>
+<td>UrlName</td>
+<td>Delete Message</td>
+@foreach (Link post in Model)
+{
+    <tr>
+        <td>
+            @post.URL
+        </td>
+        <td>
+            @post.Subject
+        </td>
+        <td>
+            @post.DateSent
+        </td>
+        <td>
+            @post.UrlName
+        </td>
+        <td>
+            <form method="post"><button asp-action="DeleteLink" asp-controller="Coding" asp-route-id="@post.LinkID">Delete</button></form>
+        </td>
+    </tr>
+}
+</table>
