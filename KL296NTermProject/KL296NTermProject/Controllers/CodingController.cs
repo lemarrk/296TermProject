@@ -30,19 +30,19 @@ namespace KL296NTermProject.Controllers
                     context.Posts.Add(p);
                     context.SaveChanges();
                     var posts = context.Posts.ToList();
-                    return View("~/Views/Coding/Cpp/Post.cshtml", posts);
+                    return View("./Views/Coding/Cpp/Post.cshtml", posts);
 
                 case "2":
                     context.Posts.Add(p);
                     context.SaveChanges();
                     var posts1 = context.Posts.ToList();
-                    return View("~/Views/Coding/CSharp/Post.cshtml", posts1);
+                    return View("./Views/Coding/CSharp/Post.cshtml", posts1);
 
                 case "3":
                     context.Posts.Add(p);
                     context.SaveChanges();
                     var posts2 = context.Posts.ToList();
-                    return View("~/Views/Coding/JS/Post.cshtml", posts2);
+                    return View("./Views/Coding/JS/Post.cshtml", posts2);
 
                 default:
                     break;
@@ -59,7 +59,7 @@ namespace KL296NTermProject.Controllers
             //var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "Cpp").Select(o => o).ToList();
             var message = context.Posts.Where(o => o.Topic.TopicName == "Cpp").ToList();
            
-            return View("~/Views/Coding/CPP/Message.cshtml", message);
+            return View("./Views/Coding/CPP/Message.cshtml", message);
         }
 
         //[Authorize]
@@ -74,7 +74,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult CppInput()
         {
             var topic = new Post();
-            return View("~/Views/Coding/CPP/Topic.cshtml", topic);
+            return View("./Views/Coding/CPP/Topic.cshtml", topic);
         }
 
         [Authorize]
@@ -92,7 +92,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult CppPost()
         {
             var posts = context.Posts.Where(o => o.Topic.TopicName == "Cpp").Select(o => o).ToList();
-            return View("~/Views/Coding/CPP/Post.cshtml", posts);
+            return View("./Views/Coding/CPP/Post.cshtml", posts);
         }
 
         //[Authorize]
@@ -109,7 +109,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult CppLink()
         {
             var links = context.Links.ToList();
-            return View("~/Views/Coding/CPP/Link.cshtml", links);
+            return View("./Views/Coding/CPP/Link.cshtml", links);
         }
 
         // csharp section
@@ -118,7 +118,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult CSharpMessage()
         {
             var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "CSharp").ToList();
-            return View("~/Views/Coding/CSharp/Message.cshtml", posts);
+            return View("./Views/Coding/CSharp/Message.cshtml", posts);
         }
 
         //[Authorize]
@@ -131,7 +131,7 @@ namespace KL296NTermProject.Controllers
         [Authorize]
         public IActionResult CSharpTopic()
         {
-            return View("~/Views/Coding/CSharp/Topic.cshtml");
+            return View("./Views/Coding/CSharp/Topic.cshtml");
         }
 
         [Authorize]
@@ -166,7 +166,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult CSharpLink()
         {
             var links = context.Links.ToList();
-            return View("~/Views/Coding/CSharp/Link.cshtml",links);
+            return View("./Views/Coding/CSharp/Link.cshtml",links);
         }
 
 
@@ -175,13 +175,13 @@ namespace KL296NTermProject.Controllers
         public IActionResult JSMessage()
         {
             var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "JS").ToList();
-            return View("~/Views/Coding/JS/Message.cshtml", posts);
+            return View("./Views/Coding/JS/Message.cshtml", posts);
         }
 
         [Authorize]
         public IActionResult JSTopic()
         {
-            return View("~/Views/Coding/JS/Topic.cshtml");
+            return View("./Views/Coding/JS/Topic.cshtml");
         }
 
         [Authorize]
@@ -215,7 +215,7 @@ namespace KL296NTermProject.Controllers
         public IActionResult JSLink()
         {
             var links = context.Links.ToList();
-            return View("~/Views/Coding/JS/Link.cshtml", links);
+            return View("./Views/Coding/JS/Link.cshtml", links);
         }
 
         // begin data manipulation
