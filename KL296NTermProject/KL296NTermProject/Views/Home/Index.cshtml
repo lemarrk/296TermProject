@@ -27,21 +27,31 @@
         { }
 -->        
         <div>
-            <span>
-                <a method="post" asp-action="Login" asp-controller="Account" asp-area="">
-                    <input type="submit" value="Login" class="btn btn-dark btn-outline-light" />
-                </a>
-            </span>
-            <span>
-                <a method="post" asp-action="Register" asp-controller="Account" asp-area="">
-                    <input type="submit" value="Register" class="btn btn-dark btn-outline-light" />
-                </a>
-            </span>
-            <span>
-                <a method="post" asp-action="Logout" asp-controller="Account" asp-area="">
-                    <input type="submit" value="Logout" class="btn btn-dark btn-outline-light" />
-                </a>
-            </span>
+            @using Microsoft.AspNetCore.Identity
+            @inject SignInManager<AppUser> signInManager
+            @if (signInManager.IsSignedIn(User))
+            {
+
+                <span>
+                    <a method="post" asp-action="Logout" asp-controller="Account" asp-area="">
+                        <input type="submit" value="Logout" class="btn btn-dark btn-outline-light" />
+                    </a>
+                </span>
+            }
+            else
+            {
+                <span>
+                    <a method="post" asp-action="Login" asp-controller="Account" asp-area="">
+                        <input type="submit" value="Login" class="btn btn-dark btn-outline-light" />
+                    </a>
+                </span>
+
+                <span> 
+                    <a method="post" asp-action="Register" asp-controller="Account" asp-area="">
+                        <input type="submit" value="Register" class="btn btn-dark btn-outline-light" />
+                    </a>
+                </span>
+            }
         </div>
         <br />
         <br />
@@ -50,22 +60,22 @@
                 <section class="col-3">
 
                     <div class="float-left">
-                        <div class="font-weight-bold">Topics CPP</div>
-                        <a asp-action="CppTopic" asp-controller="Coding">
+                        <div class="font-weight-bold">Topics Input CPP</div>
+                        <a asp-action="Input" asp-controller="Coding">
                             <img src="pexels-negative-space-97077.jpg" alt="code picture" width="160" height="120" />
                         </a>
                     </div>
 
                     <div class="float-left">
-                        <div class="font-weight-bold">Topics CSharp</div>
-                        <a asp-action="CSharpTopic" asp-controller="Coding">
+                        <div class="font-weight-bold">Topics Input CSharp</div>
+                        <a asp-action="Input" asp-controller="Coding">
                             <img src="pexels-negative-space-97077.jpg" alt="code picture" width="160" height="120" />
                         </a>
                     </div>
 
                     <div class="float-left">
-                        <div class="font-weight-bold">Topics JS</div>
-                        <a asp-action="JSTopic" asp-controller="Coding">
+                        <div class="font-weight-bold">Topics Input JS</div>
+                        <a asp-action="Input" asp-controller="Coding">
                             <img src="pexels-negative-space-97077.jpg" alt="code picture" width="160" height="120" />
                         </a>
                     </div>

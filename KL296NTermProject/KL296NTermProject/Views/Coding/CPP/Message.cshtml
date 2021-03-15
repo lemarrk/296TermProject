@@ -18,27 +18,30 @@
     <td>Subject</td>
     <td>Date Sent</td>
     <td>Body</td>
-    <td>Get Messages</td>
+    <td>Input Message</td>
     <td>Delete Message</td>
 
     @foreach (Message post in Model)
     {
-        <tr>
-            <td>
-                @post.Sender
-            </td>
-            <td>
-                @post.Subject
-            </td>
-            <td>
-                @post.DateSent
-            </td>
-            <td>
-                @post.Body
-            </td>
-            <td>
-                <form method="post"><button asp-action="DeleteCppMessage" asp-controller="Coding" asp-route-id="1">Delete</button></form>
-            </td>
-        </tr>
+<tr>
+    <td>
+        @post.Sender
+    </td>
+    <td>
+        @post.Subject
+    </td>
+    <td>
+        @post.DateSent
+    </td>
+    <td>
+        @post.Body
+    </td>
+    <td>
+        <form method="post"><button asp-action="InputMessage" asp-controller="Coding" >Input Message</button></form>
+    </td>
+    <td>
+        <form method="post"><button asp-action="DeleteMessage" asp-controller="Coding" asp-route-id="@post.MessageID">Delete</button></form>
+    </td>
+</tr>
     }
 </table>

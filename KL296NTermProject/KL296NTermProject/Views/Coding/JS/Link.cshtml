@@ -6,32 +6,36 @@
 @model List<Link>
 <p>JS link</p>
 
-<a asp-controller="Coding" asp-action="JSTopic">Link to JS Topic</a>
+<a asp-controller="Coding" asp-action="JSPost">Link to JS Topic</a>
 <br />
 <table class="table table-striped table-bordered">
     <td>URL</td>
     <td>Subject</td>
     <td>Date Sent</td>
     <td>UrlName</td>
-    <td>Delete Message</td>
+    <td>Delete Link</td>
+    <td>Input a Link</td>
     @foreach (Link post in Model)
     {
-        <tr>
-            <td>
-                @post.URL
-            </td>
-            <td>
-                @post.Subject
-            </td>
-            <td>
-                @post.DateSent
-            </td>
-            <td>
-                @post.UrlName
-            </td>
-            <td>
-                <form method="post"><button asp-action="DeleteLink" asp-controller="Coding" asp-route-id="@post.LinkID">Delete</button></form>
-            </td>
-        </tr>
+<tr>
+    <td>
+        @post.URL
+    </td>
+    <td>
+        @post.Subject
+    </td>
+    <td>
+        @post.DateSent
+    </td>
+    <td>
+        @post.UrlName
+    </td>
+    <td>
+        <form method="post"><button asp-action="DeleteLink" asp-controller="Coding" asp-route-id="@post.LinkID">Delete</button></form>
+    </td>
+    <td>
+        <form method="post"><button asp-action="InputLink" asp-controller="Coding">Input Link</button></form>
+    </td>
+</tr>
     }
 </table>

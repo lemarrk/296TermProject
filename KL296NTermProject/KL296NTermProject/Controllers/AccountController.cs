@@ -89,7 +89,7 @@ namespace KL296NTermProject.Controllers
                 else
                 {
 
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
 
             }

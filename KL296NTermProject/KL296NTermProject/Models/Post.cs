@@ -12,24 +12,28 @@ namespace KL296NTermProject.Models
         [Key]
         public int PostID { get; set; }
 
-        public int MessageID { get; set; }
-
-        [InverseProperty("Post")]
-        public List<Message> Message { get; set; }
-
+        [Required]
         public string Sender { get; set; }
 
+        [Required]
         public string Subject { get; set; }
 
         public DateTime DateSent { get; set; }
 
+        [Required]
         public string Body { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         [ForeignKey("TopicID")]
         public int TopicID { get; set; }
 
         public Topic Topic { get; set; }
+
+        List<Message> Messages { get { return messages; } }
+
+        List<Message> messages = new List<Message>();
+
     }
 }

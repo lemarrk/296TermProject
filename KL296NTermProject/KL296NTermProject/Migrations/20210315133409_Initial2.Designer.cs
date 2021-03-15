@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KL296NTermProject.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20210314152109_Initial")]
-    partial class Initial
+    [Migration("20210315133409_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,7 +142,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostID")
+                    b.Property<int?>("PostID")
                         .HasColumnType("int");
 
                     b.Property<string>("Sender")
@@ -170,9 +170,6 @@ namespace KL296NTermProject.Migrations
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("MessageID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -382,10 +379,8 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Message", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Post", "Post")
-                        .WithMany("Message")
-                        .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("PostID");
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>

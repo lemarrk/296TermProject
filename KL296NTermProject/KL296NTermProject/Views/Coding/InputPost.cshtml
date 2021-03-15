@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+
+}
+
+@model Post
+
+<p>Input Post</p>
+<a asp-controller="Home" asp-action="Index">Link to Home</a>
+<br />
+
+<div asp-validation-summary="ModelOnly"></div>
+<form asp-action="InputPost" asp-controller="Coding" method="post" class="form-horizonal">
+    <div class="form-group">
+        <fieldset>
+            <legend>Select Topic</legend>
+            <div>
+                <label>
+                    Cpp
+                    <input type="radio" value="1" name="id" required/>
+                </label>
+                <label>
+                    CSharp
+                    <input type="radio" value="2" name="id" />
+                </label>
+                <label>
+                    JS
+                    <input type="radio" value="3" name="id" />
+                </label>
+                
+            </div>
+        </fieldset>
+        <br />
+        <input class="form-control" placeholder="Input Sender Name" asp-for="Sender" />
+        <br />
+        <input class="form-control" placeholder="Input Subject Title" asp-for="Subject" />
+        <br />
+        <input class="form-control" placeholder="Input Reciever Name" asp-for="Name" />
+        <br />
+        <textarea asp-for="Body" placeholder="Enter Text Here..." class="form-control"></textarea>
+        <button class="btn-default">Submit</button>
+    </div>
+</form>
+

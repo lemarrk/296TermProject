@@ -73,9 +73,55 @@ namespace KL296NTermProject.Models
                 post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
                 post.Name = siteadmin.UserName;
                 post.TopicID = context.Topics.Where(o => o.TopicName == "Cpp").FirstOrDefault().TopicID;
-                post.Message = new List<Message>();
+               // post.Message = new List<Message>();
               
                 context.Posts.Add(post);
+                context.SaveChanges();
+
+                Link link2 = new Link();
+                link2.URL = "www.w3schools.com/js/DEFAULT.asp";
+                link2.UrlName = "site";
+                link2.Sender = "me";
+                link2.DateSent = DateTime.Now;
+                link2.Subject = "A good informative site";
+                link2.TopicID = context.Topics.Where(o => o.TopicName == "JS").FirstOrDefault().TopicID;
+
+                context.Links.Add(link2);
+                context.SaveChanges();
+
+                Post post2 = new Post();
+                post2.DateSent = DateTime.Now;
+                post2.Sender = "Website Creator";
+                post2.Subject = "Making ";
+                post2.Body = "Login";
+                post2.Name = siteadmin.UserName;
+                post2.TopicID = context.Topics.Where(o => o.TopicName == "JS").FirstOrDefault().TopicID;
+                //post2.Message = new List<Message>();
+
+                context.Posts.Add(post2);
+                context.SaveChanges();
+
+                Link link3 = new Link();
+                link3.URL = "www.w3schools.com/cs/default.asp";
+                link3.UrlName = "site";
+                link3.Sender = "me";
+                link3.DateSent = DateTime.Now;
+                link3.Subject = "A good informative site";
+                link3.TopicID = context.Topics.Where(o => o.TopicName == "CSharp").FirstOrDefault().TopicID;
+
+                context.Links.Add(link3);
+                context.SaveChanges();
+
+                Post post3 = new Post();
+                post3.DateSent = DateTime.Now;
+                post3.Sender = "Website Creator";
+                post3.Subject = "Making ";
+                post3.Body = "Login";
+                post3.Name = siteadmin.UserName;
+                post3.TopicID = context.Topics.Where(o => o.TopicName == "CSharp").FirstOrDefault().TopicID;
+               // post3.Message = new List<Message>();
+
+                context.Posts.Add(post3);
                 context.SaveChanges();
 
             }

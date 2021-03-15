@@ -14,10 +14,13 @@ namespace KL296NTermProject.Models
 
         public string TopicName { get; set; }
 
-        public Post Post { get; set; }
+        public List<Post> Posts { get { return posts; } }
+        public List<Post> posts = new List<Post>();
 
-        public Video Video { get; set; }
-    
-        public Link Link { get; set; }
+        public List<Video> Videos { get { return videos; } }
+        public List<Video> videos = new List<Video>();
+
+        public List<Link> Links { get { return links; } }
+        public List<Link> links = new List<Link>();
     }
 }
