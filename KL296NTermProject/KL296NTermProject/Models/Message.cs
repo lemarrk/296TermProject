@@ -21,7 +21,10 @@ namespace KL296NTermProject.Models
         public DateTime DateSent { get; set; }
 
         [Required]
-        public string Body { get; set; } 
+        public string Body { get; set; }
+
+        [ForeignKey("PostID")]
+        public int PostID { get; set; }
 
         public Post Post { get; set; }
     }

@@ -11,10 +11,10 @@
 <br />
 
 <div asp-validation-summary="ModelOnly"></div>
-<form asp-action="InputMessage" asp-controller="Coding" method="post" class="form-horizonal">
+<form asp-action="InputMessage" asp-controller="Coding" method="post" class="form-horizonal" asp-route-id="@Model.PostID">
     <div class="form-group">
         <fieldset>
-            <legend>Select Topic</legend>
+            <legend>Input Message Topic</legend>
             <div>
                 <label>
                     Cpp
@@ -28,7 +28,6 @@
                     JS
                     <input type="radio" value="3" name="id" />
                 </label>
-
             </div>
         </fieldset>
         <br />

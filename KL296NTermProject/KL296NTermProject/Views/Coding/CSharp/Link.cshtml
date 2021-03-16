@@ -14,7 +14,9 @@
     <td>Date Sent</td>
     <td>UrlName</td>
     <td>Delete Link</td>
-    <td>Input a Link</td>
+    <td>
+        <form method="post"><button asp-action="InputLink" asp-controller="Coding">Input Link</button></form>
+    </td>
     @foreach (Link post in Model)
     {
         <tr>
@@ -34,7 +36,7 @@
                 <form method="post"><button asp-action="DeleteLink" asp-controller="Coding" asp-route-id="@post.LinkID">Delete</button></form>
             </td>
             <td>
-                <form method="post"><button asp-action="InputLink" asp-controller="Coding">Input Link</button></form>
+
             </td>
         </tr>
     }

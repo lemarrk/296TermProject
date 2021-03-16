@@ -144,7 +144,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostID")
+                    b.Property<int>("PostID")
                         .HasColumnType("int");
 
                     b.Property<string>("Sender")
@@ -386,7 +386,9 @@ namespace KL296NTermProject.Migrations
                 {
                     b.HasOne("KL296NTermProject.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>

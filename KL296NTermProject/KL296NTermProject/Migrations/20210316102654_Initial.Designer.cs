@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KL296NTermProject.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20210315133409_Initial2")]
-    partial class Initial2
+    [Migration("20210316102654_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,24 +107,27 @@ namespace KL296NTermProject.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Sender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TopicID")
                         .HasColumnType("int");
 
                     b.Property<string>("URL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LinkID");
 
-                    b.HasIndex("TopicID")
-                        .IsUnique();
+                    b.HasIndex("TopicID");
 
                     b.ToTable("Links");
                 });
@@ -137,18 +140,21 @@ namespace KL296NTermProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostID")
+                    b.Property<int>("PostID")
                         .HasColumnType("int");
 
                     b.Property<string>("Sender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MessageID");
@@ -166,18 +172,22 @@ namespace KL296NTermProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TopicID")
@@ -185,8 +195,7 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("PostID");
 
-                    b.HasIndex("TopicID")
-                        .IsUnique();
+                    b.HasIndex("TopicID");
 
                     b.ToTable("Posts");
                 });
@@ -230,8 +239,7 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("VideoID");
 
-                    b.HasIndex("TopicID")
-                        .IsUnique();
+                    b.HasIndex("TopicID");
 
                     b.ToTable("Videos");
                 });
@@ -370,8 +378,8 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Link", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithOne("Link")
-                        .HasForeignKey("KL296NTermProject.Models.Link", "TopicID")
+                        .WithMany("Links")
+                        .HasForeignKey("TopicID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -380,14 +388,16 @@ namespace KL296NTermProject.Migrations
                 {
                     b.HasOne("KL296NTermProject.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithOne("Post")
-                        .HasForeignKey("KL296NTermProject.Models.Post", "TopicID")
+                        .WithMany("Posts")
+                        .HasForeignKey("TopicID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -395,8 +405,8 @@ namespace KL296NTermProject.Migrations
             modelBuilder.Entity("KL296NTermProject.Models.Video", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
-                        .WithOne("Video")
-                        .HasForeignKey("KL296NTermProject.Models.Video", "TopicID")
+                        .WithMany("Videos")
+                        .HasForeignKey("TopicID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

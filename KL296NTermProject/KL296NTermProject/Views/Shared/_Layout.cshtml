@@ -32,6 +32,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Coding" asp-action="JSPost">JS</a>
                         </li>
+                        <li class="nav-item mx-auto">
+                            <form class="nav-item" submit="post">
+                                <fieldset>
+                                    <div style="display:inline;margin-right:10px">
+                                        <label>
+                                            Cpp
+                                            <input type="radio" value="Cpp" name="id" />
+                                        </label>
+                                        <label>
+                                            CSharp
+                                            <input type="radio" value="CSharp" name="id" />
+                                        </label>
+                                        <label>
+                                            JS
+                                            <input type="radio" value="JS" name="id" />
+                                        </label>
+                                        <input type="text" asp-action="Search" asp-controller="Coding" style="display:inline;width:300px;height:25px" />
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

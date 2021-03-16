@@ -16,7 +16,9 @@
     <td>Body</td>
     <td>Get Messages</td>
     <td>Delete Message</td>
-    <td>Make Post</td>
+    <td>
+        <form method="post"><button asp-action="InputPost" asp-controller="Coding">Post</button></form>
+    </td>
     @foreach (Post post in Model)
     {
         <tr>
@@ -42,7 +44,7 @@
                 <form method="post"><button asp-action="DeletePost" asp-controller="Coding" asp-route-id="@post.PostID">Delete</button></form>
             </td>
             <td>
-                <form method="post"><button asp-action="InputPost" asp-controller="Coding">Post</button></form>
+
             </td>
         </tr>
     }
