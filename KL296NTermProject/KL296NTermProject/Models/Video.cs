@@ -19,10 +19,5 @@ namespace KL296NTermProject.Models
         public DateTime DateSent { get; set; }
 
         public string URL { get; set; }
-
-        [ForeignKey("TopicID")]
-        public int TopicID { get; set; }
-
-        public Topic Topic { get; set; }
     }
 }

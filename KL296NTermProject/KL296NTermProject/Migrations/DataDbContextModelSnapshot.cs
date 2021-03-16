@@ -157,8 +157,6 @@ namespace KL296NTermProject.Migrations
 
                     b.HasKey("MessageID");
 
-                    b.HasIndex("PostID");
-
                     b.ToTable("Messages");
                 });
 
@@ -229,7 +227,7 @@ namespace KL296NTermProject.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TopicID")
+                    b.Property<int?>("TopicID")
                         .HasColumnType("int");
 
                     b.Property<string>("URL")
@@ -382,15 +380,6 @@ namespace KL296NTermProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("KL296NTermProject.Models.Message", b =>
-                {
-                    b.HasOne("KL296NTermProject.Models.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("KL296NTermProject.Models.Post", b =>
                 {
                     b.HasOne("KL296NTermProject.Models.Topic", "Topic")
@@ -402,11 +391,9 @@ namespace KL296NTermProject.Migrations
 
             modelBuilder.Entity("KL296NTermProject.Models.Video", b =>
                 {
-                    b.HasOne("KL296NTermProject.Models.Topic", "Topic")
+                    b.HasOne("KL296NTermProject.Models.Topic", null)
                         .WithMany("Videos")
-                        .HasForeignKey("TopicID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TopicID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

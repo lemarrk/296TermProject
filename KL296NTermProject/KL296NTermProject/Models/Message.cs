@@ -26,6 +26,8 @@ namespace KL296NTermProject.Models
         [ForeignKey("PostID")]
         public int PostID { get; set; }
 
-        public Post Post { get; set; }
+        public List<Post> Post { get { return posts; } }
+
+        public List<Post> posts = new List<Post>();
     }
 }

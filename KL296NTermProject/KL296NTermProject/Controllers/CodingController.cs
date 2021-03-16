@@ -38,9 +38,10 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public IActionResult InputPost(Post p, string id)
         {
-            p.TopicID = Convert.ToInt32(id);
+            //p.TopicID = Convert.ToInt32(id);
+            //var t
 
-            if(p.TopicID != 0)
+            if (p.TopicID != 0)
             {
 
                 p.DateSent = DateTime.Now;
@@ -73,7 +74,7 @@ namespace KL296NTermProject.Controllers
         }
 
         /////////////////////////////// LInks  below
-   
+
         [Authorize]
         [HttpGet]
         public IActionResult InputLink()
@@ -87,7 +88,7 @@ namespace KL296NTermProject.Controllers
         {
             p.TopicID = Convert.ToInt32(id);
 
-            if(p.TopicID != 0)
+            if (p.TopicID != 0)
             {
                 p.DateSent = DateTime.Now;
 
@@ -119,28 +120,26 @@ namespace KL296NTermProject.Controllers
             return View(new Link());
         }
 
-
         /////////////////////////////// Input Below
 
         [Authorize]
         [HttpGet]
         public IActionResult InputMessage()
         {
-           return View(new Message());
+            return View(new Message());
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult InputMessage(Message p, string id)
         {
-            if(id == null) {
-                id = "0";
-            }
-
-            var post_id = Convert.ToInt32(id);
-
-            if(post_id != 0)
+            if (id == null)
             {
+                return View(new Message());
+            }
+            else
+            {
+                var post_id = Convert.ToInt32(id);
                 p.DateSent = DateTime.Now;
                 p.PostID = post_id;
 
@@ -149,29 +148,27 @@ namespace KL296NTermProject.Controllers
                     case "1":
                         context.Messages.Add(p);
                         context.SaveChanges();
-                        var posts = context.Messages.Where(o => o.Post.PostID == post_id).ToList();
+                        var posts = context.Messages.Where(o => o.PostID == post_id).ToList();
                         return View("./Views/Coding/Cpp/Message.cshtml", posts);
 
                     case "2":
                         context.Messages.Add(p);
                         context.SaveChanges();
-                        var posts1 = context.Messages.Where(o => o.Post.PostID == post_id).ToList();
+                        var posts1 = context.Messages.Where(o => o.PostID == post_id).ToList();
                         return View("./Views/Coding/CSharp/Message.cshtml", posts1);
 
                     case "3":
                         context.Messages.Add(p);
                         context.SaveChanges();
-                        var posts2 = context.Messages.Where(o => o.Post.PostID == post_id).ToList();
+                        var posts2 = context.Messages.Where(o => o.PostID == post_id).ToList();
                         return View("./Views/Coding/JS/Message.cshtml", posts2);
 
                     default:
-                        break;
+                        return View(new Message());
                 }
-
             }
-
-            return View(new Message());
         }
+        
 
         // // / // / //  //
         [Authorize]
@@ -191,7 +188,7 @@ namespace KL296NTermProject.Controllers
             //var posts = context.Topics.Include("Posts").Where(o => o.TopicName == "Cpp").Select(o => o).ToList();
             //var message = context.Messages.Include("Posts").Where(p => p.MessageID).ToList();
             //var messages = context.Messages.Where(o => o.PostID == id).Select(o => o).ToList();
-            var messages = context.Messages.Where(o => o.Post.PostID == id).ToList();
+            var messages = context.Messages.Where(o => o.PostID == id).ToList();
             return View("./Views/Coding/CPP/Message.cshtml", messages);
         }
 
@@ -232,7 +229,7 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public IActionResult CSharpMessage(int id)
         {
-            var messages = context.Messages.Where(o => o.Post.PostID == id).ToList();
+            var messages = context.Messages.Where(o => o.PostID == id).ToList();
             return View("./Views/Coding/CSharp/Message.cshtml", messages);
         }
 
@@ -284,7 +281,7 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public IActionResult JSMessage(int id)
         {
-            var messages = context.Messages.Where(o => o.Post.PostID == id).ToList();
+            var messages = context.Messages.Where(o => o.PostID == id).ToList();
             return View("./Views/Coding/JS/Message.cshtml", messages);
         }
 
@@ -402,15 +399,15 @@ namespace KL296NTermProject.Controllers
                 switch (m.PostID)
                 {
                     case 1:
-                        var posts = context.Messages.Where(o => o.Post.PostID == m.PostID).ToList();
+                        var posts = context.Messages.Where(o => o.PostID == m.PostID).ToList();
                         return View("./Views/Coding/Cpp/Message.cshtml", posts);
 
                     case 2:
-                        var posts1 = context.Messages.Where(o => o.Post.PostID == m.PostID).ToList();
+                        var posts1 = context.Messages.Where(o => o.PostID == m.PostID).ToList();
                         return View("./Views/Coding/CSharp/Message.cshtml", posts1);
 
                     case 3:
-                        var posts2 = context.Messages.Where(o => o.Post.PostID == m.PostID).ToList();
+                        var posts2 = context.Messages.Where(o => o.PostID == m.PostID).ToList();
                         return View("./Views/Coding/JS/Message.cshtml", posts2);
 
                     default:

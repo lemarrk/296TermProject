@@ -31,9 +31,9 @@ namespace KL296NTermProject.Models
 
         public Topic Topic { get; set; }
 
-        List<Message> Messages { get { return messages; } }
+        public List<Message> Messages { get { return messages; } }
 
-        List<Message> messages = new List<Message>();
+        public List<Message> messages = new List<Message>();
 
     }
 }

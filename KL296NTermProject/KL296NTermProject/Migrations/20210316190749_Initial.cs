@@ -49,6 +49,23 @@ namespace KL296NTermProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    MessageID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sender = table.Column<string>(nullable: false),
+                    Subject = table.Column<string>(nullable: false),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    Body = table.Column<string>(nullable: false),
+                    PostID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.MessageID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Topics",
                 columns: table => new
                 {
@@ -225,7 +242,7 @@ namespace KL296NTermProject.Migrations
                     Subject = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     URL = table.Column<string>(nullable: true),
-                    TopicID = table.Column<int>(nullable: false)
+                    TopicID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -235,30 +252,7 @@ namespace KL296NTermProject.Migrations
                         column: x => x.TopicID,
                         principalTable: "Topics",
                         principalColumn: "TopicID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    MessageID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Sender = table.Column<string>(nullable: false),
-                    Subject = table.Column<string>(nullable: false),
-                    DateSent = table.Column<DateTime>(nullable: false),
-                    Body = table.Column<string>(nullable: false),
-                    PostID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.MessageID);
-                    table.ForeignKey(
-                        name: "FK_Messages_Posts_PostID",
-                        column: x => x.PostID,
-                        principalTable: "Posts",
-                        principalColumn: "PostID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -306,11 +300,6 @@ namespace KL296NTermProject.Migrations
                 column: "TopicID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_PostID",
-                table: "Messages",
-                column: "PostID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Posts_TopicID",
                 table: "Posts",
                 column: "TopicID");
@@ -345,6 +334,9 @@ namespace KL296NTermProject.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
                 name: "Videos");
 
             migrationBuilder.DropTable(
@@ -352,9 +344,6 @@ namespace KL296NTermProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Topics");

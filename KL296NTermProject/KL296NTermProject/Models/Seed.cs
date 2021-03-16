@@ -73,7 +73,7 @@ namespace KL296NTermProject.Models
                 post.Body = "Login as 'SiteAdmin' to make yourself the admin (The password is 'Abc123!')";
                 post.Name = siteadmin.UserName;
                 post.TopicID = context.Topics.Where(o => o.TopicName == "Cpp").FirstOrDefault().TopicID;
-               // post.Message = new List<Message>();
+                //post.Message = new List<Message>();
               
                 context.Posts.Add(post);
                 context.SaveChanges();
