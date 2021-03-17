@@ -18,11 +18,32 @@ namespace KL296NTermProject.Controllers
             context = _context;
         }
 
+        [Authorize]
         [HttpPost]
-        public IActionResult Search(string topic, string content)
+        public IActionResult Search(string id, string searchString)
         {
+            SearchVM search = new SearchVM();
+            search.TopicName = id;
 
-            return View();
+                var topics = context.Links.Where(o => o.Topic.TopicName == search.TopicName).ToList();
+
+                foreach (Link l in topics) {
+                   search.SearchLink.Add(l);
+                }
+
+                var posts = context.Posts.Where(o => o.Topic.TopicName == search.TopicName).ToList(); 
+
+                foreach (Post p in posts)
+                {
+                    search.SearchPost.Add(p);
+                    
+                    foreach (Message m in context.Messages.Where(o => o.PostID == p.PostID))
+                    {
+                        search.SearchMessage.Add(m);
+                    }
+                }
+
+            return View(search);
         }
 
         // Posts below
@@ -38,12 +59,14 @@ namespace KL296NTermProject.Controllers
         [HttpPost]
         public IActionResult InputPost(Post p, string id)
         {
-            //p.TopicID = Convert.ToInt32(id);
-            //var t
 
-            if (p.TopicID != 0)
+            if (id == null)
             {
-
+                return View(new Post());
+            }
+            else
+            {
+                p.TopicID = Convert.ToInt32(id);
                 p.DateSent = DateTime.Now;
 
                 switch (id)
@@ -67,10 +90,10 @@ namespace KL296NTermProject.Controllers
                         return View("./Views/Coding/JS/Post.cshtml", posts2);
 
                     default:
-                        break;
+                        return View(new Post());
                 }
             }
-            return View(new Post());
+            
         }
 
         /////////////////////////////// LInks  below
@@ -91,7 +114,6 @@ namespace KL296NTermProject.Controllers
             if (p.TopicID != 0)
             {
                 p.DateSent = DateTime.Now;
-
                 switch (id)
                 {
                     case "1":

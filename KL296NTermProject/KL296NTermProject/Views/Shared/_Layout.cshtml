@@ -33,7 +33,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Coding" asp-action="JSPost">JS</a>
                         </li>
                         <li class="nav-item mx-auto">
-                            <form class="nav-item" submit="post">
+                            <form class="nav-item" submit="post" asp-action="Search" asp-controller="Coding">
                                 <fieldset>
                                     <div style="display:inline;margin-right:10px">
                                         <label>
@@ -48,7 +48,10 @@
                                             JS
                                             <input type="radio" value="JS" name="id" />
                                         </label>
-                                        <input type="text" asp-action="Search" asp-controller="Coding" style="display:inline;width:300px;height:25px" />
+                                        <label>
+                                            <input type="text" name="searchString" style="display:inline;width:200px;height:25px;margin:0px 10px 0px 10px" />
+                                            <button type="submit" style="height:100px;background-color:red;color:lavender">Search</button>
+                                        </label>        
                                     </div>
                                 </fieldset>
                             </form>

@@ -4,9 +4,65 @@
 @{
 }
 
+@model SearchVM
 
-<div class="container">
-    <div>
-
+<div class="row">
+    <div class="row col-lg-2"></div>
+    <div class="column col-lg-4">
+        <div class="card float-left">
+            @foreach (var l in Model.SearchLink)
+            {
+                <b class="m-2">Link:</b> 
+                <div class="card-body mx-4 my-1">
+                    <br />
+                    <label>URL:</label>
+                    <div>
+                        @l.URL
+                    </div>
+                    <br />
+                    <label>Subject:</label>
+                    <div>
+                        @l.Subject
+                    </div>
+                    <br />
+                    <label>DateSent:</label>
+                    <div>
+                        @l.DateSent
+                    </div>
+                    <br />
+                    <label>UrlName:</label>
+                    <div>
+                        @l.UrlName
+                    </div>
+                </div>
+            }
+        </div>
     </div>
+    <br />
+    <div class="column col-lg-4" style="">
+        <div class="card float-right">
+            @foreach (var l in Model.SearchPost)
+            {
+                <b class="m-2">Posts:</b>
+                <div class="card-body mx-4 my-1">
+                    <br />
+                    <label>ID:</label>
+                    <div>@l.PostID</div>
+                    <br />
+                    <label>Subject:</label>
+                    <div>@l.Subject</div>
+                    <br />
+                    <label>Sender:</label>
+                    <div>@l.Sender</div>
+                    <br />
+                    <label>Topic:</label>
+                    <div>@l.Topic</div>
+                    <br />
+                    <label>body:</label>
+                    <div>@l.Body</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row col-lg-2"></div>
 </div>
